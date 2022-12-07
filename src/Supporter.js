@@ -258,5 +258,25 @@ function PledgeView() {
   }
 
 
-
+function ClaimPledge() {
+    let json = {
+        Email: currentUser,
+        ID: Jason.ID,
+      }
+      fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/claimPledge", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(json),
+        }).then((responseJson) => {
+          
+          responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+    
+            setJason(JSON.parse(obj.body.body));
+            root.render(<React.StrictMode>
+              <ProjectView />
+            </React.StrictMode>);
+    
+          })
+        });
+}
 
