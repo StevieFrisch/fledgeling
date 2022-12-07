@@ -251,7 +251,7 @@ function PledgeView() {
       <main style = {layout.Appmain}>
       <label style = {layout.proj}>Pledge: ${Jason.Amount}</label>
       <label style = {layout.description}>Description: {Jason.Description}</label>
-      <button className = "claim" onClick = {(e) => ClaimPledge()}>{Jason.Amount}>Claim</button>
+      <button className = "claim" onClick = {(e) => ClaimPledge()}>Claim</button>
       </main>)
   
       return pledgeStuff;
@@ -263,6 +263,7 @@ function ClaimPledge() {
         Email: currentUser,
         ID: Jason.ID,
       }
+      console.log(Jason.ID)
       fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/claimPledge", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -273,7 +274,7 @@ function ClaimPledge() {
     
             setJason(JSON.parse(obj.body.body));
             root.render(<React.StrictMode>
-              <ProjectView />
+              <PledgeView />
             </React.StrictMode>);
     
           })
