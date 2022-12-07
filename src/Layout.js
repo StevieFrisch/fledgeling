@@ -214,4 +214,14 @@ export const layout = {
             left: "2%",
             top:  "10%"
         },
+        funds: {
+            position: "absolute",
+            backgroundColor: "#333333",
+            color: "#E5E9EC",
+            fontFamily: "Lucida Grande",
+            fontSize: 50,
+            fontWeight: "bold",
+            left: "2%",
+            top: "10%"
+        },
 }
