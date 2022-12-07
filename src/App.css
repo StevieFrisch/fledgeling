@@ -1,0 +1,251 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #333333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.signSupporter {
+  position: absolute;
+  border-radius: 10px;
+  background-color: #E5E9EC;
+  color: #333333;
+  border: none;
+  font-family: "Lucida Grande";
+  font-size: 20;
+  font-weight: bold;
+  left: 55%;
+  top: 25%;
+  padding: 15px;
+}
+
+.signSupporter:hover {
+  background-color:#b9bfca;
+}
+
+.signDesigner {
+  position: absolute;
+  border-radius: 10px;
+  background-color: #E5E9EC;
+  color: #333333;
+  border: none;
+  font-family: "Lucida Grande";
+  font-size: 20;
+  font-weight: bold;
+  left: 15%;
+  top: 25%;
+  padding: 15px;
+}
+
+.signDesigner:hover {
+  background-color:#b9bfca;
+}
+
+.regSupporter {
+  position: absolute;
+  border-radius: 10px;
+  background-color: #E5E9EC;
+  color: #333333;
+  border: none;
+  font-family: "Lucida Grande";
+  font-size: 20;
+  font-weight: bold;
+  left: 55%;
+  top: 40%;
+  padding: 15px;
+}
+
+.regSupporter:hover {
+  background-color:#b9bfca;
+}
+
+.regDesigner {
+  position: absolute;
+  border-radius: 10px;
+  background-color: #E5E9EC;
+  color: #333333;
+  border: none;
+  font-family: "Lucida Grande";
+  font-size: 20;
+  font-weight: bold;
+  left: 15%;
+  top: 40%;
+  padding: 15px;
+}
+
+.regDesigner:hover {
+  background-color:#b9bfca;
+}
+
+.signAdmin {
+  position: absolute;
+  border-radius: 10px;
+  background-color: #E5E9EC;
+  color: #333333;
+  border: none;
+  font-family: "Lucida Grande";
+  font-size: 20;
+  font-weight: bold;
+  left: 35%;
+  top: 55%;
+  padding: 15px;
+}
+
+.signAdmin:hover {
+  background-color:#b9bfca;
+}
+
+table, th, td {
+  border: 1px solid #E5E9EC;
+  position: "absolute";
+  color: #E5E9EC;
+  font-family: "Lucida Grande";
+  padding: 5px;
+  margin-left: auto;
+  margin-right: 100;
+  margin-top: 100;      
+}
+
+.createProject {
+  position: absolute;
+  border-radius: 10px;
+  background-color: #E5E9EC;
+  color: #333333;
+  border: none;
+  font-family: "Lucida Grande";
+  font-size: 20;
+  font-weight: bold;
+  left: 35%;
+  top: 2%;
+  padding: 15px;
+}
+
+.createProject:hover {
+  background-color:#b9bfca;
+}
+
+.createProject2 {
+  position: absolute;
+  border-radius: 10px;
+  background-color: #E5E9EC;
+  color: #333333;
+  border: none;
+  font-family: "Lucida Grande";
+  font-size: 20;
+  font-weight: bold;
+  left: 35%;
+  top: 35%;
+  padding: 15px;
+}
+
+.createProject2:hover {
+  background-color:#b9bfca;
+}
+
+.createPledge {
+  position: absolute;
+  border-radius: 10px;
+  background-color: #E5E9EC;
+  color: #333333;
+  border: none;
+  font-family: "Lucida Grande";
+  font-size: 20;
+  font-weight: bold;
+  left: 2%;
+  top: 10%;
+  padding: 15px;
+}
+
+.createPledge:hover {
+  background-color:#b9bfca;
+}
+
+.deleteProject {
+  position: absolute;
+  border-radius: 10px;
+  background-color: #E5E9EC;
+  color: #333333;
+  border: none;
+  font-family: "Lucida Grande";
+  font-size: 20;
+  font-weight: bold;
+  left: 10%;
+  top: 10%;
+  padding: 15px;
+}
+
+.deleteProject:hover {
+  background-color:#b9bfca;
+}
+
+.launchProject {
+  position: absolute;
+  border-radius: 10px;
+  background-color: #E5E9EC;
+  color: #333333;
+  border: none;
+  font-family: "Lucida Grande";
+  font-size: 20;
+  font-weight: bold;
+  left: 18%;
+  top: 10%;
+  padding: 15px;
+}
+
+.launchProject:hover {
+  background-color:#b9bfca;
+}
+
+.launchProject:disabled {
+  background-color:#b9bfca;
+}
+
+.signOut {
+  position: absolute;
+  border-radius: 10px;
+  background-color: #E5E9EC;
+  color: #333333;
+  border: none;
+  font-family: "Lucida Grande";
+  font-size: 20;
+  font-weight: bold;
+  left: 28%;
+  top: 2%;
+  padding: 15px;
+}
+
+.signOut:hover {
+  background-color:#b9bfca;
+}
+
+.deleteProject:hover {
+  background-color:#b9bfca;
+}
+
+.back {
+  position: absolute;
+  border-radius: 10px;
+  background-color: #E5E9EC;
+  color: #333333;
+  border: none;
+  font-family: "Lucida Grande";
+  font-size: 20;
+  font-weight: bold;
+  left: 26.5%;
+  top: 10%;
+  padding: 15px;
+}
+
+.back:hover {
+  background-color:#b9bfca;
+}
+
+
