@@ -251,7 +251,7 @@ function PledgeView() {
       <main style = {layout.Appmain}>
       <label style = {layout.proj}>Pledge: ${Jason.Amount}</label>
       <label style = {layout.description}>Description: {Jason.Description}</label>
-      <button className = "claim" >Claim</button>
+      <button className = "claim" onClick = {(e) => ClaimPledge()}>{Jason.Amount}>Claim</button>
       </main>)
   
       return pledgeStuff;
