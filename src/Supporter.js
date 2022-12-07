@@ -99,7 +99,6 @@ function SupDash () {
   let designerStuff =  (
     <main style = {layout.Appmain}>
     <label style = {layout.proj}>Projects</label>
-    <label style = {layout.funds}>Funds</label>
     <table>
           <tr>
             <th>Project Name</th>
@@ -166,7 +165,7 @@ function ProjectView() {
   let projectStuff =  (
     <main style = {layout.Appmain}>
     <label style = {layout.proj}>Project: {Jason.Name}</label>
-    <label style = {layout.raised}>{Jason.Amount} / ${Jason.Goal}</label>
+    <label style = {layout.raised}>${Jason.Amount} / ${Jason.Goal}</label>
     <table>
           <tr>
             <th>Designer</th>
@@ -210,7 +209,7 @@ function RenderNewPledge() {
   pledges.forEach(pledge => {
     result.push(
       <tr>
-        <td><button onClick = {(e) => viewPledge(pledge)}>{pledge.Amount}</button></td>
+        <td><button onClick = {(e) => viewPledge(pledge)}>${pledge.Amount}</button></td>
         <td>{pledge.Description}</td>
         <td>{pledge.MaxSupporters}</td>
       </tr>
@@ -251,6 +250,7 @@ function PledgeView() {
       <main style = {layout.Appmain}>
       <label style = {layout.proj}>Pledge: ${Jason.Amount}</label>
       <label style = {layout.description}>Description: {Jason.Description}</label>
+      <label style = {layout.funds}>Funds: {Jason.CurrentSupporterBudget}</label>
       <button className = "claim" onClick = {(e) => ClaimPledge()}>Claim</button>
       </main>)
   

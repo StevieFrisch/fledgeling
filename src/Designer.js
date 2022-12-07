@@ -217,7 +217,7 @@ export function getDesProjectsReg(){
     let projectStuff =  (
       <main style = {layout.Appmain}>
       <label style = {layout.proj}>Project: {Jason.Name}</label>
-      <label style = {layout.raised}>{Jason.Amount} / ${Jason.Goal}</label>
+      <label style = {layout.raised}>${Jason.Amount} / ${Jason.Goal}</label>
       <table>
             <tr>
               <th>Designer</th>
@@ -308,13 +308,66 @@ export function getDesProjectsReg(){
     pledges.forEach(pledge => {
       result.push(
         <tr>
-          <td>${pledge.Amount}</td>
+          <td><button onClick = {(e) => viewPledge(pledge)}>${pledge.Amount}</button></td>
           <td>{pledge.Description}</td>
           <td>{pledge.MaxSupporters}</td>
           <td><button onClick = {(e) => deletePledge(pledge)}>Delete</button></td>
         </tr>
       )
     });
+    return result;
+  }
+
+  function viewPledge(pledge) {
+
+    let json = {
+      ID: pledge.ID,
+    }
+
+    fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/designerViewPledge", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(json),
+      }).then((responseJson) => {
+        
+        responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+  
+          setJason(JSON.parse(obj.body.body));
+          root.render(<React.StrictMode>
+            <PledgeView />
+          </React.StrictMode>);
+  
+        })
+      });
+  }
+
+  function PledgeView () {
+    let pledgeStuff =  (
+      <main style = {layout.Appmain}>
+      <label style = {layout.proj}>Pledge: ${Jason.Amount}</label>
+      <label style = {layout.description}>Description: {Jason.Description}</label>
+      <table style = {layout.table}>
+            <tr>
+              <th>Supporters</th>
+            </tr>
+            {RenderSupporters()}
+      </table>
+      </main>)
+  
+      return pledgeStuff;
+  }
+
+  function RenderSupporters() {
+    let supporters = Jason.CurrentSupporters;
+    let result = [];
+    for(let email of supporters){
+      result.push(
+        <tr>
+          <td>{email}</td>
+        </tr>
+      );
+    }
+    
     return result;
   }
   

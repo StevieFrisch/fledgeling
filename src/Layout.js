@@ -214,6 +214,7 @@ export const layout = {
             left: "2%",
             top:  "10%"
         },
+
         funds: {
             position: "absolute",
             backgroundColor: "#333333",
@@ -221,7 +222,6 @@ export const layout = {
             fontFamily: "Lucida Grande",
             fontSize: 50,
             fontWeight: "bold",
-            left: "2%",
-            top: "10%"
+            left: "60%",
         },
 }
