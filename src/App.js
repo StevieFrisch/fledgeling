@@ -20,7 +20,7 @@ export function App() {
   const appRef = React.useRef(null);
   let loginStuff =( 
     <main style = {layout.Appmain} ref = {appRef}>
-    <label style = {layout.title}>Website Name</label>
+    <label style = {layout.title}>Fledgeling</label>
     <div style = {layout.box}>
         <label style = {layout.text} htmlFor="Email">Email:</label>
         <input style = {layout.textBox} type="text" id="Email" name="Email"></input>

@@ -248,4 +248,22 @@ table, th, td {
   background-color:#b9bfca;
 }
 
+.claim {
+  position: absolute;
+  border-radius: 10px;
+  background-color: #E5E9EC;
+  color: #333333;
+  border: none;
+  font-family: "Lucida Grande";
+  font-size: 20;
+  font-weight: bold;
+  left: 2%;
+  top: 18%;
+  padding: 15px;
+}
+
+.claim:hover {
+  background-color:#b9bfca;
+}
+
 

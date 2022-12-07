@@ -203,4 +203,15 @@ export const layout = {
             marginLeft: "auto",
             marginRight: "auto",  
           },
+        
+          description: {
+            position: "absolute",
+            backgroundColor: "#333333",
+            color: "#E5E9EC",
+            fontFamily: "Lucida Grande",
+            fontSize: 20,
+            fontWeight: "bold",
+            left: "2%",
+            top:  "10%"
+        },
 }

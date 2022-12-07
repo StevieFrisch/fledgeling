@@ -223,6 +223,7 @@ function RenderNewPledge() {
 function viewPledge(pledge){
 
   let json = {
+    Email: currentUser,
     ID: pledge.ID,
   }
   fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/viewPledge", {
@@ -245,7 +246,16 @@ function viewPledge(pledge){
 
 
 function PledgeView() {
+    let pledgeStuff =  (
+      <main style = {layout.Appmain}>
+      <label style = {layout.proj}>Pledge: ${Jason.Amount}</label>
+      <label style = {layout.description}>Description: {Jason.Description}</label>
+      <button className = "claim" >Claim</button>
+      </main>)
   
-}
+      return pledgeStuff;
+  }
 
-//Claim Pledge
+
+
+
