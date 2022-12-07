@@ -217,7 +217,7 @@ export function getDesProjectsReg(){
     let projectStuff =  (
       <main style = {layout.Appmain}>
       <label style = {layout.proj}>Project: {Jason.Name}</label>
-      <label style = {layout.raised}>0 / ${Jason.Goal}</label>
+      <label style = {layout.raised}>{Jason.Amount} / ${Jason.Goal}</label>
       <table>
             <tr>
               <th>Designer</th>
