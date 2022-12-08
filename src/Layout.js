@@ -69,6 +69,18 @@ export const layout = {
             left: "2%"
         },
 
+        genreLabel: {
+            position: "absolute",
+            backgroundColor: "#333333",
+            color: "#E5E9EC",
+            fontFamily: "Lucida Grande",
+            fontSize: 30,
+            fontWeight: "bold",
+            left: "2%",
+            top:"10%"
+            
+        },
+
         raised: {
             position: "absolute",
             backgroundColor: "#333333",
@@ -223,5 +235,53 @@ export const layout = {
             fontSize: 50,
             fontWeight: "bold",
             left: "60%",
+        },
+
+        c1: {
+            position: "absolute",
+            left: "2%",
+            top: "15%",
+        },
+
+        c1Text: {
+            position: "absolute",
+            backgroundColor: "#333333",
+            color: "#E5E9EC",
+            fontFamily: "Lucida Grande",
+            fontSize: 20,
+            left: "5%",
+            top: "15%",
+        },
+
+        c2: {
+            position: "absolute",
+            left: "2%",
+            top: "18%",
+        },
+
+        c2Text: {
+            position: "absolute",
+            backgroundColor: "#333333",
+            color: "#E5E9EC",
+            fontFamily: "Lucida Grande",
+            fontSize: 20,
+            left: "5%",
+            top: "18%",
+        },
+
+        c3: {
+            position: "absolute",
+            left: "2%",
+            top: "21%",
+        },
+
+        c3Text: {
+            position: "absolute",
+            backgroundColor: "#333333",
+            color: "#E5E9EC",
+            fontFamily: "Lucida Grande",
+            fontSize: 20,
+            left: "5%",
+            top: "21%",
         },
 }

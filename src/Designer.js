@@ -384,7 +384,7 @@ export function getDesProjectsReg(){
         <input style = {layout.desctextBox} type="text" id="PledgeDesc" name="PledgeDesc" ref={PledgeDesc}></input>
         <label style = {layout.deadline} htmlFor="PledgeMax">Max Supporters:</label>
         <input style = {layout.maxtextBox} type="PledgeMax" id="PledgeMax" name="PledgeMax" ref={PledgeMax}></input>
-        <button type="button" className="createProject2" onClick = {(e) => CreateNewPledge()}>Submit</button>
+        <button id = "btn" type="button" className="createProject2" onClick = {(e) => CreateNewPledge()}>Submit</button>
     </main>)
   
     return PledgeStuff;
