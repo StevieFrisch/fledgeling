@@ -1,3 +1,9 @@
+Fledgeling is a project mock of Kickstarter, where designers can submit their ideas to the platform for the general public to support.
+A designer can add pledge tiers to their project, where they can offer a reward for supporters who donated money to their company early.
+Supporters can also directly support a project with donations. 
+
+
+-----
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
