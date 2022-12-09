@@ -142,7 +142,7 @@ function searchProjectsGenre(genre) {
       })
     });
   } else {
-    
+
     let json = {
       Genre: genre,
     }
@@ -294,7 +294,6 @@ function ClaimPledge() {
         Email: currentUser,
         ID: Jason.ID,
       }
-      console.log(Jason.ID)
       fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/claimPledge", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -307,6 +306,7 @@ function ClaimPledge() {
             root.render(<React.StrictMode>
               <PledgeView />
             </React.StrictMode>);
+            alert("Pledge Claimed");
     
           })
         });
