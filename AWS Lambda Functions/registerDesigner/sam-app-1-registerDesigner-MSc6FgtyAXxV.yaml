@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  samapp1registerDesignerMSc6FgtyAXxV:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: app.lambdaHandler
+      Runtime: nodejs14.x
+      CodeUri: .
+      Description: ''
+      MemorySize: 128
+      Timeout: 3
+      Role: 'arn:aws:iam::232806667982:role/standard'
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-07261bd32a61017fb
+        SubnetIds:
+          - subnet-00b95c512cfc5f6e6
+          - subnet-03f0c03f4f3d51714
+          - subnet-063b4a1406f23fae6
+      Tags:
+        'lambda:createdBy': SAM
