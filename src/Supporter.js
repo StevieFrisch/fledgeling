@@ -234,6 +234,34 @@ function RenderNewProject() {
   return result;
 }
 
+
+function addFunds(money) {
+
+  let json = {
+    Email: currentUser,
+    Amount: money,
+  }
+  fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/addFunds", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(json),
+        }).then((responseJson) => {
+          
+          responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+    
+            setJason(JSON.parse(obj.body.body));
+            root.render(<React.StrictMode>
+              <PledgeView />
+            </React.StrictMode>);
+            alert("Funds Added");
+    
+          })
+        });
+}
+
+
+
+
 function RenderNewPledge() {
   let pledges = Jason.PledgeTiers;
   let result = [];
