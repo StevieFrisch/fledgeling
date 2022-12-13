@@ -208,6 +208,8 @@ function ProjectView() {
     <main style = {layout.Appmain}>
     <label style = {layout.proj}>Project: {Jason.Name}</label>
     <label style = {layout.raised}>${Jason.Amount} / ${Jason.Goal}</label>
+    <label style = {layout.goal} htmlFor="Goal">Direct Support:</label>
+    <input style = {layout.supporttextBox} type="text" id="directSupport" name="directSupport" ></input>
     <table>
           <tr>
             <th>Designer</th>
