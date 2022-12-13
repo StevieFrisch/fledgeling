@@ -54,6 +54,7 @@ function AdminDash () {
               <th>Genre</th>
               <th>Goal</th>
               <th>Status</th>
+              <th>Delete?</th>
             </tr>
             {RenderProjectsAdmin(Jason)}
           </table>
@@ -88,16 +89,45 @@ function AdminDash () {
       }
       result.push(
         <tr>
-          <td><button>{project.Name}</button></td>
+          <td>{project.Name}</td>
           <td>{project.Description}</td>
           <td>{project.DesignerName}</td>
           <td>{project.Deadline.substring(0, 10)}</td>
           <td>{project.Genre}</td>
           <td>${project.Goal}</td>
           <th>{status}</th>
+          <td><button onClick = {(e) => deleteProject(project)}>Delete</button></td>
         </tr>
       )
     });
     return result;
+  }
+
+  function deleteProject(project) {
+    if (window.confirm("Are you sure you want to delete this project?") === true) {
+        let json = {
+            Email: currentUser,
+            ID: project.ID,
+          }
+        
+          fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/deleteProject", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(json),
+            }).then((responseJson) => {
+              
+              responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+        
+                setJason(JSON.parse(obj.body.body));
+                root.render(<React.StrictMode>
+                  <AdminDash />
+                </React.StrictMode>);
+        
+              })
+            });
+      } else {
+        console.log("Cancled");
+      }
+
   }
   
