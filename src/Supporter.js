@@ -104,6 +104,8 @@ function SupDash () {
           </tr>
           {renderProjects(Jason)}
         </table>
+        <input style = {layout.addfundstextBox} type="AddFundsAmount" id="AddFundsAmount" name="AddFundsAmount" ref={AddFundsAmount}></input>
+        <button type="button" className="addFunds" onClick = {(e) => addFunds()}>Add Funds</button>
         <button type="button" className="signOut" onClick = {(e) => login()}>Sign Out</button>
     </main>
   )
@@ -268,11 +270,14 @@ function RenderNewProject() {
 }
 
 
+let AddFundsAmount= React.createRef();
+var funds;
+
 function addFunds(money) {
 
   let json = {
     Email: currentUser,
-    Amount: money,
+    Amount: AddFundsAmount.current.value,
   }
   fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/addFunds", {
           method: "POST",
@@ -282,10 +287,8 @@ function addFunds(money) {
           
           responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
     
-            setJason(JSON.parse(obj.body.body));
-            root.render(<React.StrictMode>
-              <PledgeView />
-            </React.StrictMode>);
+            funds=(JSON.parse(obj.body.body));
+            
             alert("Funds Added");
     
           })

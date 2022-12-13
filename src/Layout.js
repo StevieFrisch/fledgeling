@@ -206,6 +206,17 @@ export const layout = {
             width: 215
         },
 
+
+        addfundtextBox: {
+            position: "absolute",
+            backgroundColor: "#E5E9EC",
+            color: "#333333",
+            left: "40%",
+            top: "10%",
+            height: 25,
+            width: 215
+        },
+
         table: {
             border: "1px solid #E5E9EC",
             position: "relative",
