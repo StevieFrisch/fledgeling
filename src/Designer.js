@@ -116,43 +116,33 @@ export function getDesProjectsReg(){
       }
       result.push(
         <div className="columns mx-6">
-          <div className="column is-half p-0 my-5">
+          <div className="column is-two-thirds p-0 my-5">
             <div className="box is-clickable" onClick = {(e) => ViewProject(project)}>
               <div className="is-flex is-flex-direction-column">
-            <tr>
-              <td><button onClick = {(e) => ViewProject(project)}>{project.Name}</button></td>
-              <td>{project.Description}</td>
-              <td>{project.Deadline.substring(0, 10)}</td>
-              <td>{project.Genre}</td>
-              <td>${project.Goal}</td>
-              <td>{status}</td>
-            </tr>
-              <p class="title is-3">{project.Name}</p>
+              <p class="title is-3 is-spaced">{project.Name}</p>
               <p class="subtitle is-5">{project.Description}</p>
-                <div className="is-flex">
                   <div className="columns">
                     <div className="column">
                       <p class="subtitle is-6">
-                       {project.Deadline.substring(0, 10)}
+                       Deadline: {project.Deadline.substring(0, 10)}
                       </p>
                     </div>
                     <div className="column">
                       <p class="subtitle is-6">
-                       {project.Genre}
+                       Genre: {project.Genre}
                       </p>
                     </div>
                     <div className="column">
                       <p class="subtitle is-6">
-                       ${project.Goal}
+                       Goal: ${project.Goal}
                       </p>
                     </div>
                     <div className="column">
                       <p class="subtitle is-6">
-                       {status}
+                       Status: {status}
                       </p>
                     </div>
                   </div>
-                </div>
               </div>
             </div>
           </div>
