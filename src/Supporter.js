@@ -2,11 +2,21 @@ import { layout } from './Layout.js';
 import React from 'react';
 import './App.css';
 import {root} from './index.js';
-import { currentUser, setCurrentUser, Jason, setJason } from './App.js';
+import { currentUser, setCurrentUser, Jason, setJason, App } from './App.js';
 
 
 
-
+function login() {
+  if (window.confirm("Are you sure you want to sign out?") === true) {
+      setCurrentUser("");
+      setJason("");
+      root.render(<React.StrictMode>
+          <App />
+      </React.StrictMode>);
+  } else {
+      console.log("cancled")
+  }
+}
 
 
 
@@ -94,6 +104,7 @@ function SupDash () {
           </tr>
           {renderProjects(Jason)}
         </table>
+        <button type="button" className="signOut" onClick = {(e) => login()}>Sign Out</button>
     </main>
   )
   
@@ -215,9 +226,31 @@ function ProjectView() {
           </tr>
           {RenderNewPledge()}
     </table>
+    <button type="button" className="back" onClick = {(e) => back()}>Back</button>
     </main>)
 
     return projectStuff;
+}
+
+function back() {
+  let json = {
+      Email: currentUser,
+    }
+  
+    fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/loginSupporter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(json),
+      }).then((responseJson) => {
+        
+        responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+  
+          setJason(JSON.parse(obj.body.body));
+          root.render(<React.StrictMode>
+            <SupDash />
+          </React.StrictMode>);
+        })
+      });
 }
 
 function RenderNewProject() {
@@ -277,9 +310,11 @@ function RenderNewPledge() {
   return result;
 }
 
+var projID;
 
 //View Pledge
 function viewPledge(pledge){
+  projID = Jason.ID;
 
   let json = {
     Email: currentUser,
@@ -311,9 +346,33 @@ function PledgeView() {
       <label style = {layout.description}>Description: {Jason.Description}</label>
       <label style = {layout.funds}>Funds: {Jason.CurrentSupporterBudget}</label>
       <button className = "claim" onClick = {(e) => ClaimPledge()}>Claim</button>
+      <button type="button" className="back" onClick = {(e) => backProj()}>Back</button>
       </main>)
   
       return pledgeStuff;
+  }
+
+  function backProj() {
+    let json = {
+      ID: projID,
+    }
+
+    projID = "";
+  
+    fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/viewProject", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(json),
+      }).then((responseJson) => {
+        
+        responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+  
+          setJason(JSON.parse(obj.body.body));
+          root.render(<React.StrictMode>
+            <ProjectView />
+          </React.StrictMode>);
+        })
+      });
   }
 
 

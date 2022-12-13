@@ -318,7 +318,10 @@ export function getDesProjectsReg(){
     return result;
   }
 
+  var projID;
+
   function viewPledge(pledge) {
+    projID = Jason.ID
 
     let json = {
       ID: pledge.ID,
@@ -352,9 +355,33 @@ export function getDesProjectsReg(){
             </tr>
             {RenderSupporters()}
       </table>
+      <button type="button" className="back" onClick = {(e) => backProj()}>Back</button>
       </main>)
   
       return pledgeStuff;
+  }
+
+  function backProj() {
+    let json = {
+      ID: projID,
+    }
+
+    projID = "";
+  
+    fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/viewProject", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(json),
+      }).then((responseJson) => {
+        
+        responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+  
+          setJason(JSON.parse(obj.body.body));
+          root.render(<React.StrictMode>
+            <ProjectView />
+          </React.StrictMode>);
+        })
+      });
   }
 
   function RenderSupporters() {
