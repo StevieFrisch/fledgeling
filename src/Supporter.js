@@ -84,6 +84,9 @@ export function getSupProjectsSign(){
   //Test JSON 
 }
 
+let search= React.createRef();
+let finalgenre = "";
+
 //Supporter Dashboard Renderer
 function SupDash () {
   let designerStuff =  (
@@ -107,6 +110,8 @@ function SupDash () {
         <input style = {layout.addfundstextBox} type="AddFundsAmount" id="AddFundsAmount" name="AddFundsAmount" ref={AddFundsAmount}></input>
         <button type="button" className="addFunds" onClick = {(e) => addFunds()}>Add Funds</button>
         <button type="button" className="signOut" onClick = {(e) => login()}>Sign Out</button>
+        <input style = {layout.addfundtextBox} type="search" id="search" name="search" ref={search}></input>
+        <button type="button" style = {layout.search} onClick = {(e) => searchProjects()}>Search</button>
     </main>
   )
   
@@ -134,7 +139,9 @@ function renderProjects(json) {
 }
 
 function searchProjectsGenre(genre) {
+  finalgenre = genre;
   if(genre === "Reset") {
+    finalgenre = "";
     let json = {
       Email: currentUser,
     }
@@ -155,28 +162,32 @@ function searchProjectsGenre(genre) {
       })
     });
   } else {
-
-    let json = {
-      Genre: genre,
-    }
-   
-    fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/searchProjects", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(json),
-      }).then((responseJson) => {
-        
-        responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
-  
-          setJason(JSON.parse(obj.body.body));
-          root.render(<React.StrictMode>
-            <SupDash />
-          </React.StrictMode>);
-  
-        })
-      });
+    searchProjects();
   }
 
+}
+
+function searchProjects() {
+  let json = {
+    Genre: finalgenre,
+    Keyword: search.current.value
+  }
+ 
+  fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/searchProjects", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(json),
+    }).then((responseJson) => {
+      
+      responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+
+        setJason(JSON.parse(obj.body.body));
+        root.render(<React.StrictMode>
+          <SupDash />
+        </React.StrictMode>);
+
+      })
+    });
 }
 
 

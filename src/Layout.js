@@ -302,4 +302,10 @@ export const layout = {
             left: "5%",
             top: "21%",
         },
+
+        search: {
+            position: "absolute",
+            left: "55%",
+            top: "10%",
+        },
 }
