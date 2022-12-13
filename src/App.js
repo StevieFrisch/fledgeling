@@ -27,9 +27,14 @@ export function App() {
     <div className="columns">
     <div className="column"></div>
       <div className="column is-half is-flex is-flex-direction-column">
-        <div className="mx-9">
-          <input type="text" id="Email" name="Email" className="input is-primary" placeholder="Email"></input>
+        <div className="columns">
+          <div className="column"></div>
+          <div className="column is-two-thirds">
+            <input type="text" id="Email" name="Email" className="input is-primary" placeholder="Email"></input>
+          </div>
+          <div className="column"></div>
         </div>
+        
         <div className="mt-3">
           <div className="is-flex is-justify-content-space-around is-flex-wrap-wrap">
             <button type="button" className="button is-large m-3" onClick = {(e) => getSupProjectsSign()}>Sign In Supporter</button>
