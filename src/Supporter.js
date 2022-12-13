@@ -205,13 +205,16 @@ function viewProject(project) {
     });
 }
 
+let directSupportAmmount= React.createRef();
+
 function ProjectView() {
   let projectStuff =  (
     <main style = {layout.Appmain}>
     <label style = {layout.proj}>Project: {Jason.Name}</label>
     <label style = {layout.raised}>${Jason.Amount} / ${Jason.Goal}</label>
     <label style = {layout.goal} htmlFor="Goal">Direct Support:</label>
-    <input style = {layout.supporttextBox} type="text" id="directSupport" name="directSupport" ></input>
+    <input style = {layout.supporttextBox} type="text" id="directSupport" name="directSupport" ref={directSupportAmmount}></input>
+    <button type="button" className="directSupport" onClick = {(e) => directSupport()}>Submit</button>
     <table>
           <tr>
             <th>Designer</th>
@@ -234,6 +237,29 @@ function ProjectView() {
     </main>)
 
     return projectStuff;
+}
+
+function directSupport() {
+  let json = {
+    Email: currentUser,
+    ID: Jason.ID,
+    Amount: directSupportAmmount.current.value
+  }
+
+  fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/directSupport", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(json),
+    }).then((responseJson) => {
+      
+      responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+
+        setJason(JSON.parse(obj.body.body));
+        root.render(<React.StrictMode>
+          <ProjectView />
+        </React.StrictMode>);
+      })
+    });
 }
 
 function back() {
