@@ -206,6 +206,13 @@ export const layout = {
             width: 215
         },
 
+        supporttextBox: {
+            position: "absolute",
+            backgroundColor: "#E5E9EC",
+            color: "#333333",
+            left: "3%",
+            top: "30%",
+        },
 
         addfundtextBox: {
             position: "absolute",
