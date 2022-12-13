@@ -51,14 +51,8 @@ export function getSupProjectsReg(){
 }
 
 
-
-
-
-
-
 //Sign in a supporter
 export function getSupProjectsSign(){
-
   let json = {
     Email: document.getElementById("Email").value,
   }
@@ -72,7 +66,6 @@ export function getSupProjectsSign(){
   }).then((responseJson) => {
     
     responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
-
       setJason(JSON.parse(obj.body.body));
       root.render(<React.StrictMode>
         <SupDash />
@@ -84,8 +77,10 @@ export function getSupProjectsSign(){
   //Test JSON 
 }
 
+
+
 //Supporter Dashboard Renderer
-function SupDash () {
+function SupDash (){
   let designerStuff =  (
     <main style = {layout.Appmain}>
     <label style = {layout.proj}>Projects</label>
@@ -107,12 +102,33 @@ function SupDash () {
         <input style = {layout.addfundstextBox} type="AddFundsAmount" id="AddFundsAmount" name="AddFundsAmount" ref={AddFundsAmount}></input>
         <button type="button" className="addFunds" onClick = {(e) => addFunds()}>Add Funds</button>
         <button type="button" className="signOut" onClick = {(e) => login()}>Sign Out</button>
+        <label style = {layout.funds}>Funds: {0}</label>
     </main>
   )
   
   return designerStuff;
 }
 
+let CurrFundsAmount= React.createRef();
+
+function checkFunds(){
+  let json = {
+    Email: currentUser,
+  }
+  fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/checkFunds", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(json),
+        }).then((responseJson) => {
+          
+          responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+    
+            let currentFunds=(JSON.parse(obj.body.body));
+            CurrFundsAmount.current.value = currentFunds
+            
+          })
+        });
+}
 
 
 //render a list of projects in json file
