@@ -212,6 +212,14 @@ export const layout = {
             color: "#333333",
             left: "3%",
             top: "30%",
+        },
+
+        addfundtextBox: {
+            position: "absolute",
+            backgroundColor: "#E5E9EC",
+            color: "#333333",
+            left: "40%",
+            top: "10%",
             height: 25,
             width: 215
         },

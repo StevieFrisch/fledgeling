@@ -104,6 +104,8 @@ function SupDash () {
           </tr>
           {renderProjects(Jason)}
         </table>
+        <input style = {layout.addfundstextBox} type="AddFundsAmount" id="AddFundsAmount" name="AddFundsAmount" ref={AddFundsAmount}></input>
+        <button type="button" className="addFunds" onClick = {(e) => addFunds()}>Add Funds</button>
         <button type="button" className="signOut" onClick = {(e) => login()}>Sign Out</button>
     </main>
   )
@@ -268,6 +270,35 @@ function RenderNewProject() {
     )
   return result;
 }
+
+
+let AddFundsAmount= React.createRef();
+var funds;
+
+function addFunds(money) {
+
+  let json = {
+    Email: currentUser,
+    Amount: AddFundsAmount.current.value,
+  }
+  fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/addFunds", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(json),
+        }).then((responseJson) => {
+          
+          responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+    
+            funds=(JSON.parse(obj.body.body));
+            
+            alert("Funds Added");
+    
+          })
+        });
+}
+
+
+
 
 function RenderNewPledge() {
   let pledges = Jason.PledgeTiers;
