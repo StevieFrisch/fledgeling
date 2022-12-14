@@ -168,8 +168,13 @@ export function getDesProjectsReg(){
       </div>
         <label style = {layout.goal} htmlFor="Goal">Goal:</label>
         <input style = {layout.goaltextBox} type="text" id="Goal" name="Goal" ref={Goal}></input>
-        <label style = {layout.genre} htmlFor="Genre">Genre:</label>
-        <input style = {layout.genretextBox} type="text" id="Genre" name="Genre" ref={Genre}></input>
+        <select ref = {Genre} id = "myList">
+          <option> ---Genre--- </option>
+          <option> Game </option>
+          <option> Food </option>
+          <option> Music </option>
+          <option> Movie </option>
+        </select>
         <button type="button" className="createProject2" onClick = {(e) => CreateNewProject()}>Submit</button>
     </main>)
   
