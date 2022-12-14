@@ -70,21 +70,23 @@ export function getDesProjectsReg(){
 
   function DesDash () {
     let designerStuff =  (
-      <main style = {layout.Appmain}>
-      <label style = {layout.proj}>Your Projects</label>
-      <table>
-            <tr>
-              <th>Project Name</th>
-              <th>Description</th>
-              <th>Deadline</th>
-              <th>Genre</th>
-              <th>Goal</th>
-              <th>Status</th>
-            </tr>
-            {RenderProjects(Jason)}
-          </table>
-          <button type="button" className="createProject" onClick = {(e) => root.render(<React.StrictMode><CreateProject /></React.StrictMode>)}>Create project</button>
-          <button type="button" className="signOut" onClick = {(e) => login()}>Sign Out</button>
+      <main className="hero has-background-info-light is-fullheight ">
+        <div className="is-flex is-flex-direction-column is-justify-content-space-between is-flex-wrap-nowrap">
+          <div className="is-flex is-justify-content-space-between is-align-items-center my-5 mx-6">
+            <div> 
+              <label className="box title is-1">Your Projects</label>
+            </div>
+            <div className="columns">
+              <div className="column">
+                <button type="button" className="button has-background-success has-text-white-bis" onClick = {(e) => root.render(<React.StrictMode><CreateProject /></React.StrictMode>)}>Create project</button>
+              </div>
+              <div className="column">
+                <button type="button" className="button has-background-danger-light has-text-danger-dark" onClick = {(e) => login()}>Sign Out</button>
+              </div>
+            </div>
+          </div>
+          {RenderProjects(Jason)}
+        </div>
       </main>
     )
     
@@ -113,14 +115,40 @@ export function getDesProjectsReg(){
         status = "Active";
       }
       result.push(
-        <tr>
-          <td><button onClick = {(e) => ViewProject(project)}>{project.Name}</button></td>
-          <td>{project.Description}</td>
-          <td>{project.Deadline.substring(0, 10)}</td>
-          <td>{project.Genre}</td>
-          <td>${project.Goal}</td>
-          <td>{status}</td>
-        </tr>
+        <div className="columns mx-6">
+          <div className="column is-three-fifths p-0 my-5">
+            <div className="box is-clickable" onClick = {(e) => ViewProject(project)}>
+              <div className="is-flex is-flex-direction-column">
+              <p class="title is-3 is-spaced">
+                <u>{project.Name}</u>
+              </p>
+              <p class="subtitle is-5">{project.Description}</p>
+                  <div className="columns">
+                    <div className="column">
+                      <p class="subtitle is-6">
+                       Deadline: {project.Deadline.substring(0, 10)}
+                      </p>
+                    </div>
+                    <div className="column">
+                      <p class="subtitle is-6">
+                       Genre: {project.Genre}
+                      </p>
+                    </div>
+                    <div className="column">
+                      <p class="subtitle is-6">
+                       Goal: ${project.Goal}
+                      </p>
+                    </div>
+                    <div className="column">
+                      <p class="subtitle is-6">
+                       Status: {status}
+                      </p>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
       )
     });
     return result;
