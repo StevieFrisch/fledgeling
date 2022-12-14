@@ -97,22 +97,15 @@ export function getDesProjectsReg(){
     let projects = json;
     let result = [];
     projects.forEach(project => {
-        let date = new Date().toJSON();
-      let time = JSON.stringify(date);
       var status;
-      let year = parseInt(time.substring(1,5), 10);
-      let month = parseInt(time.substring(6,8), 10);
-      let day = parseInt(time.substring(9,11), 10);
-  
-      let projyear = parseInt(project.Deadline.substring(0,4), 10);
-      let projmonth = parseInt(project.Deadline.substring(5,7), 10);
-      let projday = parseInt(project.Deadline.substring(8,10), 10);
-      if(((year >= projyear && month >= projmonth && day >= projday) || (year === projyear && month > projmonth) || (year > projyear)) && parseInt(project.IsActive, 10) === 1){
+      if(parseInt(project.IsActive, 10) === 3){
         status = "Failed";
-      } else if ( parseInt(project.IsActive, 10) === 0) {
+      } else if (parseInt(project.IsActive, 10) === 0) {
         status = "Inactive";
-      } else {
+      } else if (parseInt(project.IsActive, 10) === 1){
         status = "Active";
+      } else if (parseInt(project.IsActive, 10) === 2){
+        status = "Succesful";
       }
       result.push(
         <div className="columns mx-6">
@@ -281,6 +274,14 @@ export function getDesProjectsReg(){
       <main style = {layout.Appmain}>
       <label style = {layout.proj}>Project: {Jason.Name}</label>
       <label style = {layout.raised}>${Jason.Amount} / ${Jason.Goal}</label>
+      <label style = {layout.donations}>Direct Donations:</label>
+      <table style = {layout.table2}>
+            <tr>
+              <th>Supporter</th>
+              <th>Amount</th>
+            </tr>
+            {RenderNewDonation()}
+      </table>
       <table>
             <tr>
               <th>Designer</th>
@@ -330,27 +331,33 @@ export function getDesProjectsReg(){
         });
   }
 
+  function RenderNewDonation() {
+    let donations = Jason.Donations;
+    let result = [];
+    donations.forEach(donation => {
+      result.push(
+        <tr>
+          <td>{donation.Email}</td>
+          <td>${donation.Amount}</td>
+        </tr>
+      )
+    });
+    return result;
+  }
   
   function RenderNewProject() {
     let result = [];
 
-      let date = new Date().toJSON();
-      let time = JSON.stringify(date);
-      var status;
-      let year = parseInt(time.substring(1,5), 10);
-      let month = parseInt(time.substring(6,8), 10);
-      let day = parseInt(time.substring(9,11), 10);
-  
-      let projyear = parseInt(Jason.Deadline.substring(0,4), 10);
-      let projmonth = parseInt(Jason.Deadline.substring(5,7), 10);
-      let projday = parseInt(Jason.Deadline.substring(8,10), 10);
-      if(((year >= projyear && month >= projmonth && day >= projday) || (year === projyear && month > projmonth) || (year > projyear)) && parseInt(Jason.IsActive, 10) === 1){
-        status = "Failed";
-      } else if ( parseInt(Jason.IsActive, 10) === 0) {
-        status = "Inactive";
-      } else {
-        status = "Active";
-      }
+    var status;
+    if(parseInt(Jason.IsActive, 10) === 3){
+      status = "Failed";
+    } else if (parseInt(Jason.IsActive, 10) === 0) {
+      status = "Inactive";
+    } else if (parseInt(Jason.IsActive, 10) === 1){
+      status = "Active";
+    } else if (parseInt(Jason.IsActive, 10) === 2){
+      status = "Succesful";
+    }
 
       result.push(
         <tr>
