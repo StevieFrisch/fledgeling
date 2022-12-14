@@ -112,28 +112,28 @@ export function getDesProjectsReg(){
           <div className="column is-three-fifths p-0 my-5">
             <div className="box is-clickable" onClick = {(e) => ViewProject(project)}>
               <div className="is-flex is-flex-direction-column">
-              <p class="title is-3 is-spaced">
+              <p className="title is-3 is-spaced">
                 <u>{project.Name}</u>
               </p>
-              <p class="subtitle is-5">{project.Description}</p>
+              <p className="subtitle is-5">{project.Description}</p>
                   <div className="columns">
                     <div className="column">
-                      <p class="subtitle is-6">
+                      <p className="subtitle is-6">
                        Deadline: {project.Deadline.substring(0, 10)}
                       </p>
                     </div>
                     <div className="column">
-                      <p class="subtitle is-6">
+                      <p className="subtitle is-6">
                        Genre: {project.Genre}
                       </p>
                     </div>
                     <div className="column">
-                      <p class="subtitle is-6">
+                      <p className="subtitle is-6">
                        Goal: ${project.Goal}
                       </p>
                     </div>
                     <div className="column">
-                      <p class="subtitle is-6">
+                      <p className="subtitle is-6">
                        Status: {status}
                       </p>
                     </div>
@@ -176,27 +176,57 @@ export function getDesProjectsReg(){
 
   function CreateProject(){
     let projectStuff = (
-    <main style = {layout.Appmain}>
-        <label style = {layout.name} htmlFor="Name">Name:</label>
-        <input style = {layout.nametextBox} type="text" id="Name" name="Name" ref={Name}></input>
-        <label style = {layout.desc} htmlFor="Desc">Description:</label>
-        <input style = {layout.desctextBox} type="text" id="Desc" name="Desc" ref={Desc}></input>
-        <div>
-            <form action="/action_page.php">
-            <label style = {layout.deadline} htmlFor="Deadline">Deadline:</label>
-            <input style = {layout.deadlinetextBox} type="date" id="Deadline" name="Deadline" ref={Deadline}></input>
-          </form>
+      <main className="hero has-background-info-light is-fullheight is-justify-content-space-evenly">
+      <div className="is-flex is-justify-content-center">
+        <div className="is-flex is-flex-direction-column is-justify-content-center">
+
+          <label className="title is-4">Create Project</label>
+
+          <div className="field">
+            <label className="label">Project Name</label>
+            <div className="control">
+              <input className="input" type="text" id="Name" name="Name" ref={Name}></input>
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label">Project Description</label>
+            <div className="control">
+              <textarea className="textarea" id="Desc" name="Desc" ref={Desc}></textarea>
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label">Project Deadline</label>
+            <div className="control">
+              <input className="input" type="date" placeholder="Project Deadline" id="Deadline" name="Deadline" ref={Deadline}></input>
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label">Goal</label>
+            <div className="control">
+              <input className="input" type="text" placeholder="e.g. 1000" id="Goal" name="Goal" ref={Goal}></input>
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label">Genre</label>
+              <div class="select">
+                <select ref={Genre} id = "myList">
+                  <option> Choose Genre </option>
+                  <option> Game </option>
+                  <option> Food </option>
+                  <option> Music </option>
+                  <option> Movie </option>
+                </select>
+              </div>
+          </div>
+
+          <button className="button is-success" onClick = {(e) => CreateNewProject()}>Create Project</button>
+
+        </div>
       </div>
-        <label style = {layout.goal} htmlFor="Goal">Goal:</label>
-        <input style = {layout.goaltextBox} type="text" id="Goal" name="Goal" ref={Goal}></input>
-        <select ref = {Genre} id = "myList">
-          <option> ---Genre--- </option>
-          <option> Game </option>
-          <option> Food </option>
-          <option> Music </option>
-          <option> Movie </option>
-        </select>
-        <button type="button" className="createProject2" onClick = {(e) => CreateNewProject()}>Submit</button>
     </main>)
   
   
