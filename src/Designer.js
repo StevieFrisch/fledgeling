@@ -251,6 +251,14 @@ export function getDesProjectsReg(){
       <main style = {layout.Appmain}>
       <label style = {layout.proj}>Project: {Jason.Name}</label>
       <label style = {layout.raised}>${Jason.Amount} / ${Jason.Goal}</label>
+      <label style = {layout.donations}>Direct Donations:</label>
+      <table style = {layout.table2}>
+            <tr>
+              <th>Supporter</th>
+              <th>Amount</th>
+            </tr>
+            {RenderNewDonation()}
+      </table>
       <table>
             <tr>
               <th>Designer</th>
@@ -300,6 +308,19 @@ export function getDesProjectsReg(){
         });
   }
 
+  function RenderNewDonation() {
+    let donations = Jason.Donations;
+    let result = [];
+    donations.forEach(donation => {
+      result.push(
+        <tr>
+          <td>{donation.Email}</td>
+          <td>${donation.Amount}</td>
+        </tr>
+      )
+    });
+    return result;
+  }
   
   function RenderNewProject() {
     let result = [];
