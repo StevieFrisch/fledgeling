@@ -116,10 +116,12 @@ export function getDesProjectsReg(){
       }
       result.push(
         <div className="columns mx-6">
-          <div className="column is-two-thirds p-0 my-5">
+          <div className="column is-three-fifths p-0 my-5">
             <div className="box is-clickable" onClick = {(e) => ViewProject(project)}>
               <div className="is-flex is-flex-direction-column">
-              <p class="title is-3 is-spaced">{project.Name}</p>
+              <p class="title is-3 is-spaced">
+                <u>{project.Name}</u>
+              </p>
               <p class="subtitle is-5">{project.Description}</p>
                   <div className="columns">
                     <div className="column">
