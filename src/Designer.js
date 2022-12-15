@@ -184,6 +184,10 @@ export function getDesProjectsReg(){
   function CreateProject(){
     let projectStuff = (
       <main className="hero has-background-info-light is-fullheight is-justify-content-space-evenly">
+        <div>
+          <button className="button is-normal mx-3 my-3" onClick = {(e) => back()}>&lt; Back</button>
+        </div>
+
       <div className="is-flex is-justify-content-center">
         <div className="is-flex is-flex-direction-column is-justify-content-center">
 
@@ -323,7 +327,7 @@ export function getDesProjectsReg(){
         <div className="columns mx-5">
           <div className="column">
             <div className="box">
-              <h3 className="title is-3">Donations:</h3>
+              <h3 className="title is-3">Direct Donations:</h3>
               {RenderNewDonation()}
             </div>
           </div>
@@ -561,7 +565,7 @@ export function getDesProjectsReg(){
           <label className="title is-4">Create Pledge</label>
 
           <div className="field">
-            <label className="label">Amount</label>
+            <label className="label">Amount &#40;$&#41;</label>
             <div className="control">
               <input className="input" placeholder="e.g. 100" type="text" id="Name" name="Name" ref={PledgeAmount}></input>
             </div>
@@ -575,7 +579,7 @@ export function getDesProjectsReg(){
           </div>
 
           <div className="field">
-            <label className="label">Max Supporters</label>
+            <label className="label">Max Supporters &#40;Optional&#41;</label>
             <div className="control">
               <input className="input" placeholder="e.g. 5" id="PledgeMax" name="PledgeMax" ref={PledgeMax}></input>
             </div>
@@ -676,7 +680,7 @@ export function getDesProjectsReg(){
   }
 
   function launchProject() {
-    if(Jason.IsActive === 1){
+    if(Jason.IsActive != 0){
         alert("Project is already lauched");
     } else {
         if (window.confirm("Launch Project?") === true) {

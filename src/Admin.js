@@ -51,12 +51,12 @@ function AdminDash () {
             </div>
             <div className="columns">
               <div className="column">
-                <button type="button" className="button has-background-danger-light has-text-danger-dark" onClick = {(e) => login()}>Sign Out</button>
+                <button type="button" className="button is-large has-background-danger-light has-text-danger-dark" onClick = {(e) => login()}>Sign Out</button>
               </div>
             </div>
           </div>
           <div>
-            <button className="button is-large is-danger mx-6 mt-3 mb-5" onClick = {(e) => reapProjects()}> Reap Projects</button>
+            <button className="button is-medium is-danger mx-6 mt-3 mb-5" onClick = {(e) => reapProjects()}> Reap Projects</button>
           </div>
           {RenderProjectsAdmin(Jason)}
         </div>
@@ -80,7 +80,6 @@ function AdminDash () {
             }).then((responseJson) => {
               
               responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
-        
                 setJason(JSON.parse(obj.body.body));
                 root.render(<React.StrictMode>
                   <AdminDash />

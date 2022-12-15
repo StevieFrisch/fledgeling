@@ -145,7 +145,7 @@ function SupDash () {
             </p>
           </div>
           <div>
-            <button class="button is-small is-danger is-outlined mx-6 mt-0 mb-5 py-1" onClick = {(e) => searchProjectsGenre("Reset")}>Reset</button>
+            <button class="button is-small is-danger is-outlined mx-6 mt-0 mb-5 py-1" onClick = {(e) => searchProjectsGenre("Reset")}>Reset Search</button>
           </div>
           {renderProjects(Jason)}
         </div>
@@ -514,44 +514,66 @@ function SupporterProfile() {
         
         <div className="columns m-5">
           <div className="column">
-            <div className="is-flex is-justify-content-left">
+            <div className="is-flex is-justify-content-center">
               <div className="is-flex is-flex-direction-column is-justify-content-space-between mx-5">
 
                 <div className="box">
                   <div className="container">
                     <h3 className="title is-2 is-spaced">Recent Supporter Activity</h3>
                   </div>
-                  <h3 className="subtitle is-4 mt-3">Email: {currentUser}</h3>
-                  <h3 className="subtitle is-5 mt-0">Available Funds: ${Jason.Funds}</h3>
+                  <h3 className="subtitle is-5 mt-3">Email: {currentUser}</h3>
+                  <h3 className="tag is-primary is-light is-large mt-0">Available Funds: ${Jason.Funds}</h3>
                 </div>
-
-                <div className="box">
-                  <div className="container">
-                    <h2 className="title is-2">Recent Donations:</h2>
+                <div className="columns">
+                  <div className="column">
+                    <div className="box">
+                      <div className="container">
+                        <h2 className="title is-4">Recent Donations:</h2>
+                      </div>
+                      <h4 className="subtitle is-5 my-5">
+                        <div className="columns">
+                          <div className="column">
+                            <strong>Project Name:</strong>
+                          </div>
+                          <div className="column">
+                            <strong>Donation Amount:</strong><br/>
+                          </div>
+                        </div>
+                        {RenderSupportedDonations()}
+                      </h4>
+                    </div>
+                  </div>
+                  <div className="column">
+                    <div className="box">
+                      <div className="container">
+                        <h2 className="title is-4">Recent Pledges:</h2>
+                      </div>
+                      <h4 className="subtitle is-6 my-5">
+                        <div className="columns">
+                          <div className="column">
+                            <strong>Project Name:</strong>
+                          </div>
+                          <div className="column">
+                            <strong>Pledge Amount:</strong>
+                          </div>
+                          <div className="column">
+                            <strong>Pledge Description:</strong>
+                          </div>
+                          <div className="column">
+                            <strong>Project Status:</strong><br/>
+                          </div>
+                        </div>
+                        {RenderSupportedPledges()}
+                      </h4>
+                    </div>
                   </div>
                 </div>
+                
 
               </div>
             </div>
           </div>
         </div>
-
-    <table style = {layout.table}>
-    <tr>
-      <th>Name</th>
-      <th>Amount</th>
-      <th>Description</th>
-      <th>Status</th>
-    </tr>
-    {RenderSupportedPledges()}
-    </table>
-    <table style = {layout.table2}>
-    <tr>
-      <th>Name</th>
-      <th>Amount</th>
-    </tr>
-    {RenderSupportedDonations()}
-    </table>
   </main>
   )
 
@@ -573,12 +595,23 @@ function RenderSupportedPledges() {
         status = "Succesful";
       }
       result.push(
-        <tr>
-          <td>{pledge.ProjectName}</td>
-          <td>${pledge.Amount}</td>
-          <td>{pledge.Description.substring(0, 10)}</td>
-          <td>{status}</td>
-        </tr>
+        <h4 className="subtitle is-5 my-5">
+            <div className="columns">
+              <div className="column">
+                {pledge.ProjectName}
+              </div>
+              <div className="column">
+                ${pledge.Amount}
+              </div>
+              <div className="column">
+                {pledge.Description.substring(0, 10)}
+              </div>
+              <div className="column">
+                {status}<br/>
+              </div>
+            </div>
+            {RenderSupportedPledges()}
+        </h4>
       )
   });
 return result;
@@ -589,10 +622,16 @@ function RenderSupportedDonations() {
   let result = [];
   donations.forEach(donation => {
       result.push(
-        <tr>
-          <td>{donation.ProjectName}</td>
-          <td>${donation.Amount}</td>
-        </tr>
+        <h4 className="subtitle is-5 my-5">
+          <div className="columns">
+            <div className="column">
+              {donation.ProjectName}
+            </div>
+            <div className="column">
+              ${donation.Amount}<br/>
+            </div>
+          </div>
+        </h4>
       )
   });
 return result;
