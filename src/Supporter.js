@@ -83,8 +83,9 @@ let finalgenre = "";
 
 //Supporter Dashboard Renderer
 function SupDash (){
-  let designerStuff =  (
+  let supporterStuff =  (
     <main className="hero has-background-info-light is-fullheight ">
+      <button onClick = {(e) => viewActivity()}>View Activity</button>
         <div className="is-flex is-flex-direction-column is-justify-content-space-between is-flex-wrap-nowrap">
           <div className="is-flex is-justify-content-space-between is-align-items-center my-5 mx-6">
             <div> 
@@ -134,7 +135,99 @@ function SupDash (){
       </main>
   )
   
-  return designerStuff;
+  return supporterStuff;
+}
+
+function viewActivity() {
+  let json = {
+    Email: currentUser
+  }
+ 
+  fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/viewSupporterActivity", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(json),
+    }).then((responseJson) => {
+      
+      responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+
+        setJason(JSON.parse(obj.body.body));
+        root.render(<React.StrictMode>
+          <SupporterProfile />
+        </React.StrictMode>);
+
+      })
+    });
+}
+
+function SupporterProfile() {
+  let supporterStuff = (
+  <main>
+    <label>Email: {currentUser}</label>
+    <label style = {layout.title}>Pledges</label>
+    <label style = {layout.title2}>Donations</label>
+    <label style = {layout.text}>Funds: {Jason.Funds}</label>
+    <button className = "back" onClick = {(e) => back()}>Back</button>
+    <table style = {layout.table}>
+    <tr>
+      <th>Name</th>
+      <th>Amount</th>
+      <th>Description</th>
+      <th>Status</th>
+    </tr>
+    {RenderSupportedPledges()}
+    </table>
+    <table style = {layout.table2}>
+    <tr>
+      <th>Name</th>
+      <th>Amount</th>
+    </tr>
+    {RenderSupportedDonations()}
+    </table>
+  </main>
+  )
+
+  return supporterStuff;
+}
+
+function RenderSupportedPledges() {
+  let pledges = Jason.Pledges;
+  let result = [];
+  pledges.forEach(pledge => {
+    var status;
+      if(parseInt(pledge.ProjectIsActive, 10) === 3){
+        status = "Failed";
+      } else if (parseInt(pledge.ProjectIsActive, 10) === 0) {
+        status = "Inactive";
+      } else if (parseInt(pledge.ProjectIsActive, 10) === 1){
+        status = "Active";
+      } else if (parseInt(pledge.ProjectIsActive, 10) === 2){
+        status = "Succesful";
+      }
+      result.push(
+        <tr>
+          <td>{pledge.ProjectName}</td>
+          <td>${pledge.Amount}</td>
+          <td>{pledge.Description.substring(0, 10)}</td>
+          <td>{status}</td>
+        </tr>
+      )
+  });
+return result;
+}
+
+function RenderSupportedDonations() {
+  let donations = Jason.Donations;
+  let result = [];
+  donations.forEach(donation => {
+      result.push(
+        <tr>
+          <td>{donation.ProjectName}</td>
+          <td>${donation.Amount}</td>
+        </tr>
+      )
+  });
+return result;
 }
 
 let CurrFundsAmount= React.createRef();

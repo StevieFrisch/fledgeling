@@ -56,7 +56,18 @@ export const layout = {
             fontFamily: "Lucida Grande",
             fontSize: 50,
             fontWeight: "bold",
-            left: "40%"
+            left: "30%"
+        },
+
+        title2: {
+            position: "absolute",
+            backgroundColor: "#333333",
+            color: "#E5E9EC",
+            fontFamily: "Lucida Grande",
+            fontSize: 50,
+            fontWeight: "bold",
+            left: "30%",
+            top: "30%"
         },
 
         proj: {
