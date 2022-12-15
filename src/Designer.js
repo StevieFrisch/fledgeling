@@ -597,13 +597,19 @@ export function getDesProjectsReg(){
       PledgeAmount.current.value = PledgeAmount.current.value.substring(1);
     }
     console.log(PledgeMax.current.value);
+    var maxSupp;
+    if(PledgeMax.current.value === ""){
+      maxSupp = -1
+    } else {
+      maxSupp = PledgeMax.current.value;
+    }
   
     let json = {
       Email: currentUser,
       Amount: PledgeAmount.current.value,
       Description: PledgeDesc.current.value,
       ProjectID: Jason.ID,
-      MaxSupporters: PledgeMax.current.value,
+      MaxSupporters: maxSupp,
     }
   
     fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/createPledge", {
