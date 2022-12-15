@@ -149,7 +149,7 @@ function AdminDash () {
                     <p className="title is-3 is-spaced">
                     {project.Name}
                     </p>
-                    <button className="button is-danger is-light mr-5" onClick = {(e) => deleteProject()}>Delete Project</button>
+                    <button className="button is-danger is-light mr-5" onClick = {(e) => deleteProject(project)}>Delete Project</button>
                 </div>
               <p className="subtitle is-5">{project.Description}</p>
                   <div className="columns">
