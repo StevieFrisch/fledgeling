@@ -30,7 +30,7 @@ export function App() {
         <div className="columns">
           <div className="column"></div>
           <div className="column is-two-thirds">
-            <input type="email" id="Email" name="Email" className="input is-primary" placeholder="Email" maxlength = "44" minlength = "1"></input>
+            <input type="email" id="Email" name="Email" className="input is-primary" placeholder="Email" maxlength = "44"></input>
           </div>
           <div className="column"></div>
         </div>

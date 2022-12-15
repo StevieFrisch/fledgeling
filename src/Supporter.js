@@ -24,66 +24,65 @@ function login() {
 
 // Register a Supporter
 export function getSupProjectsReg(){
-
-  let json = {
-    Email: document.getElementById("Email").value,
+  if(document.getElementById("Email").value === ""){
+    alert("Please enter an email");
+  } else {
+    let json = {
+      Email: document.getElementById("Email").value,
+    }
+  
+    setCurrentUser(document.getElementById("Email").value);
+  
+    fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/registerSupporter", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(json),
+    }).then((responseJson) => {
+      
+      responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+  
+        setJason(JSON.parse(obj.body.body));
+        root.render(<React.StrictMode>
+          <SupDash />
+        </React.StrictMode>);
+  
+      })
+    });
   }
-
-  setCurrentUser(document.getElementById("Email").value);
-
-  fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/registerSupporter", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(json),
-  }).then((responseJson) => {
-    
-    responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
-
-      setJason(JSON.parse(obj.body.body));
-      root.render(<React.StrictMode>
-        <SupDash />
-      </React.StrictMode>);
-
-    })
-  });
-
-//Testing JSON
 
 
 }
 
 
-
-
-
-
-
 //Sign in a supporter
 export function getSupProjectsSign(){
-
-  let json = {
-    Email: document.getElementById("Email").value,
+  if(document.getElementById("Email").value === ""){
+    alert("Please enter an email");
+  } else {
+    let json = {
+      Email: document.getElementById("Email").value,
+    }
+  
+    setCurrentUser(document.getElementById("Email").value);
+  
+    fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/loginSupporter", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(json),
+    }).then((responseJson) => {
+      
+      responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+  
+        setJason(JSON.parse(obj.body.body));
+        root.render(<React.StrictMode>
+          <SupDash />
+        </React.StrictMode>);
+  
+      })
+    });
   }
 
-  setCurrentUser(document.getElementById("Email").value);
-
-  fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/loginSupporter", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(json),
-  }).then((responseJson) => {
-    
-    responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
-
-      setJason(JSON.parse(obj.body.body));
-      root.render(<React.StrictMode>
-        <SupDash />
-      </React.StrictMode>);
-
-    })
-  });
-
-  //Test JSON 
+  
 }
 
 //Supporter Dashboard Renderer

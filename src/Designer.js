@@ -17,7 +17,9 @@ function login() {
 }
 
 export function getDesProjectsReg(){
-
+  if(document.getElementById("Email").value === ""){
+    alert("Please enter an email");
+  } else {
     let json = {
       Email: document.getElementById("Email").value,
     }
@@ -39,32 +41,36 @@ export function getDesProjectsReg(){
 
       })
     });
+  }
     
   }
 
   export function getDesProjectsSign(){
-
-    let json = {
-      Email: document.getElementById("Email").value,
+    if(document.getElementById("Email").value === ""){
+      alert("Please enter an email");
+    } else {
+      let json = {
+        Email: document.getElementById("Email").value,
+      }
+  
+      setCurrentUser(document.getElementById("Email").value);
+  
+      fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/loginDesigner", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(json),
+      }).then((responseJson) => {
+        
+        responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+  
+          setJason(JSON.parse(obj.body.body));
+          root.render(<React.StrictMode>
+            <DesDash />
+          </React.StrictMode>);
+  
+        })
+      });
     }
-
-    setCurrentUser(document.getElementById("Email").value);
-
-    fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/loginDesigner", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(json),
-    }).then((responseJson) => {
-      
-      responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
-
-        setJason(JSON.parse(obj.body.body));
-        root.render(<React.StrictMode>
-          <DesDash />
-        </React.StrictMode>);
-
-      })
-    });
 
   }
 

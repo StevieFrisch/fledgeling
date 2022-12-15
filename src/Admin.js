@@ -17,7 +17,9 @@ function login() {
 }
 
 export function getAdminProjectsSign(){
-  
+  if(document.getElementById("Email").value === ""){
+    alert("Please enter an email");
+  } else {
     let json = {
       Email: document.getElementById("Email").value,
     }
@@ -40,6 +42,8 @@ export function getAdminProjectsSign(){
       })
     });
   }
+  
+}
 
 function AdminDash () {
     let adminStuff =  (
