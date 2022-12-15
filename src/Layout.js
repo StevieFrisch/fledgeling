@@ -91,6 +91,17 @@ export const layout = {
             left: "45%"
         },
 
+        donations: {
+            position: "absolute",
+            backgroundColor: "#333333",
+            color: "#E5E9EC",
+            fontFamily: "Lucida Grande",
+            fontSize: 50,
+            fontWeight: "bold",
+            left: "40%",
+            top: "40%"
+        },
+
         name: {
             position: "absolute",
             backgroundColor: "#333333",
@@ -233,6 +244,17 @@ export const layout = {
             marginLeft: "auto",
             marginRight: "auto",  
           },
+
+          table2: {
+            border: "1px solid #E5E9EC",
+            position: "relative",
+            color: "#E5E9EC",
+            fontFamily: "Lucida Grande",
+            padding: "5px",
+            marginLeft: "auto",
+            marginRight: "auto", 
+            top: "50%" 
+          },
         
           description: {
             position: "absolute",
@@ -301,5 +323,11 @@ export const layout = {
             fontSize: 20,
             left: "5%",
             top: "21%",
+        },
+
+        search: {
+            position: "absolute",
+            left: "55%",
+            top: "10%",
         },
 }
