@@ -436,6 +436,12 @@ function RenderNewPledge() {
   let pledges = Jason.PledgeTiers;
   let result = [];
   pledges.forEach(pledge => {
+    var maxSupp;
+      if(pledge.MaxSupporters === -1){
+        maxSupp = "None";
+      } else {
+        maxSupp = pledge.MaxSupporters;
+      }
     result.push(
       <div className="columns">
           <div className="column">
@@ -445,7 +451,7 @@ function RenderNewPledge() {
             <h6 className="subtitle is-6">{pledge.Description}</h6>
           </div>
           <div className="column">
-            <h6 className="subtitle is-6"><strong>Maximum Supporters: </strong>{pledge.MaxSupporters}</h6>
+            <h6 className="subtitle is-6"><strong>Maximum Supporters: </strong>{maxSupp}</h6>
           </div>
       </div>
     )
