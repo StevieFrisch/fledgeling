@@ -189,14 +189,14 @@ export function getDesProjectsReg(){
           <div className="field">
             <label className="label">Project Name</label>
             <div className="control">
-              <input className="input" type="text" id="Name" name="Name" ref={Name}></input>
+              <input className="input" type="text" id="Name" name="Name" maxlength = "44" ref={Name}></input>
             </div>
           </div>
 
           <div className="field">
             <label className="label">Project Description</label>
             <div className="control">
-              <textarea className="textarea" id="Desc" name="Desc" ref={Desc}></textarea>
+              <textarea className="textarea" id="Desc" name="Desc" maxlength = "254" ref={Desc}></textarea>
             </div>
           </div>
 
@@ -560,7 +560,7 @@ export function getDesProjectsReg(){
           <div className="field">
             <label className="label">Description</label>
             <div className="control">
-              <textarea className="textarea" id="PledgeDesc" name="PledgeDesc" ref={PledgeDesc}></textarea>
+              <textarea className="textarea" id="PledgeDesc" name="PledgeDesc" maxlength = "254" ref={PledgeDesc}></textarea>
             </div>
           </div>
 
@@ -584,6 +584,7 @@ export function getDesProjectsReg(){
     if(PledgeAmount.current.value.substring(0,1) === "$"){
       PledgeAmount.current.value = PledgeAmount.current.value.substring(1);
     }
+    console.log(PledgeMax.current.value);
   
     let json = {
       Email: currentUser,
