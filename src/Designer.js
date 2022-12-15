@@ -78,7 +78,7 @@ export function getDesProjectsReg(){
             </div>
             <div className="columns">
               <div className="column">
-                <button type="button" className="button has-background-success has-text-white-bis" onClick = {(e) => root.render(<React.StrictMode><CreateProject /></React.StrictMode>)}>Create project</button>
+                <button type="button" className="button has-background-success has-text-white-bis" onClick = {(e) => root.render(<React.StrictMode><CreateProject /></React.StrictMode>)}>Create Project</button>
               </div>
               <div className="column">
                 <button type="button" className="button has-background-danger-light has-text-danger-dark" onClick = {(e) => login()}>Sign Out</button>

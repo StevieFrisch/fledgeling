@@ -43,22 +43,23 @@ export function getAdminProjectsSign(){
 
 function AdminDash () {
     let adminStuff =  (
-      <main style = {layout.Appmain}>
-      <label style = {layout.proj}>All Projects</label>
-      <table>
-            <tr>
-              <th>Project Name</th>
-              <th>Description</th>
-              <th>Designer</th>
-              <th>Deadline</th>
-              <th>Genre</th>
-              <th>Goal</th>
-              <th>Status</th>
-            </tr>
-            {RenderProjectsAdmin(Jason)}
-          </table>
-          <button type="button" className="createProject" >Reap projects</button>
-          <button type="button" className="signOut" onClick = {(e) => login()}>Sign Out</button>
+      <main className="hero has-background-info-light is-fullheight ">
+        <div className="is-flex is-flex-direction-column is-justify-content-space-between is-flex-wrap-nowrap">
+          <div className="is-flex is-justify-content-space-between is-align-items-center my-5 mx-6">
+            <div> 
+              <label className="box title is-1">All Projects</label>
+            </div>
+            <div className="columns">
+              <div className="column">
+                <button type="button" className="button has-background-danger-light has-text-danger-dark" onClick = {(e) => login()}>Sign Out</button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button className="button is-large is-danger mx-6 my-5"> Reap Projects</button>
+          </div>
+          {RenderProjectsAdmin(Jason)}
+        </div>
       </main>
     )
     
@@ -87,15 +88,40 @@ function AdminDash () {
         status = "Active";
       }
       result.push(
-        <tr>
-          <td><button>{project.Name}</button></td>
-          <td>{project.Description}</td>
-          <td>{project.DesignerName}</td>
-          <td>{project.Deadline.substring(0, 10)}</td>
-          <td>{project.Genre}</td>
-          <td>${project.Goal}</td>
-          <th>{status}</th>
-        </tr>
+        <div className="columns mx-6">
+          <div className="column is-three-fifths p-0 my-5">
+            <div className="box">
+              <div className="is-flex is-flex-direction-column">
+              <p className="title is-3 is-spaced">
+                {project.Name}
+              </p>
+              <p className="subtitle is-5">{project.Description}</p>
+                  <div className="columns">
+                    <div className="column">
+                      <p className="subtitle is-6">
+                       Deadline: {project.Deadline.substring(0, 10)}
+                      </p>
+                    </div>
+                    <div className="column">
+                      <p className="subtitle is-6">
+                       Genre: {project.Genre}
+                      </p>
+                    </div>
+                    <div className="column">
+                      <p className="subtitle is-6">
+                       Goal: ${project.Goal}
+                      </p>
+                    </div>
+                    <div className="column">
+                      <p className="subtitle is-6">
+                       Status: {status}
+                      </p>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
       )
     });
     return result;
