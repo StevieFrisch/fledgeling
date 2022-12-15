@@ -56,7 +56,7 @@ function AdminDash () {
             </div>
           </div>
           <div>
-            <button className="button is-large is-danger mx-6 my-5"> Reap Projects</button>
+            <button className="button is-large is-danger mx-6 mt-3 mb-5"> Reap Projects</button>
           </div>
           {RenderProjectsAdmin(Jason)}
         </div>
@@ -92,9 +92,12 @@ function AdminDash () {
           <div className="column is-three-fifths p-0 my-5">
             <div className="box">
               <div className="is-flex is-flex-direction-column">
-              <p className="title is-3 is-spaced">
-                {project.Name}
-              </p>
+                <div className="is-flex is-justify-content-space-between">
+                    <p className="title is-3 is-spaced">
+                    {project.Name}
+                    </p>
+                    <button className="button is-danger is-light mr-5">Delete Project</button>
+                </div>
               <p className="subtitle is-5">{project.Description}</p>
                   <div className="columns">
                     <div className="column">
