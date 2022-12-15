@@ -51,14 +51,8 @@ export function getSupProjectsReg(){
 }
 
 
-
-
-
-
-
 //Sign in a supporter
 export function getSupProjectsSign(){
-
   let json = {
     Email: document.getElementById("Email").value,
   }
@@ -72,7 +66,6 @@ export function getSupProjectsSign(){
   }).then((responseJson) => {
     
     responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
-
       setJason(JSON.parse(obj.body.body));
       root.render(<React.StrictMode>
         <SupDash />
@@ -84,8 +77,12 @@ export function getSupProjectsSign(){
   //Test JSON 
 }
 
+let search= React.createRef();
+let finalgenre = "";
+
+
 //Supporter Dashboard Renderer
-function SupDash () {
+function SupDash (){
   let designerStuff =  (
     <main className="hero has-background-info-light is-fullheight ">
         <div className="is-flex is-flex-direction-column is-justify-content-space-between is-flex-wrap-nowrap">
@@ -140,6 +137,26 @@ function SupDash () {
   return designerStuff;
 }
 
+let CurrFundsAmount= React.createRef();
+
+function checkFunds(){
+  let json = {
+    Email: currentUser,
+  }
+  fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/checkFunds", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(json),
+        }).then((responseJson) => {
+          
+          responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+    
+            let currentFunds=(JSON.parse(obj.body.body));
+            CurrFundsAmount.current.value = currentFunds
+            
+          })
+        });
+}
 
 
 //render a list of projects in json file
@@ -183,7 +200,9 @@ function renderProjects(json) {
 }
 
 function searchProjectsGenre(genre) {
+  finalgenre = genre;
   if(genre === "Reset") {
+    finalgenre = "";
     let json = {
       Email: currentUser,
     }
@@ -204,28 +223,32 @@ function searchProjectsGenre(genre) {
       })
     });
   } else {
-
-    let json = {
-      Genre: genre,
-    }
-   
-    fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/searchProjects", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(json),
-      }).then((responseJson) => {
-        
-        responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
-  
-          setJason(JSON.parse(obj.body.body));
-          root.render(<React.StrictMode>
-            <SupDash />
-          </React.StrictMode>);
-  
-        })
-      });
+    searchProjects();
   }
 
+}
+
+function searchProjects() {
+  let json = {
+    Genre: finalgenre,
+    Keyword: search.current.value
+  }
+ 
+  fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/searchProjects", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(json),
+    }).then((responseJson) => {
+      
+      responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+
+        setJason(JSON.parse(obj.body.body));
+        root.render(<React.StrictMode>
+          <SupDash />
+        </React.StrictMode>);
+
+      })
+    });
 }
 
 
@@ -253,6 +276,8 @@ function viewProject(project) {
       })
     });
 }
+
+let directSupportAmmount= React.createRef();
 
 function ProjectView() {
   let projectStuff =  (
@@ -311,6 +336,29 @@ function ProjectView() {
     </main>)
 
     return projectStuff;
+}
+
+function directSupport() {
+  let json = {
+    Email: currentUser,
+    ID: Jason.ID,
+    Amount: directSupportAmmount.current.value
+  }
+
+  fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/directSupport", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(json),
+    }).then((responseJson) => {
+      
+      responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+
+        setJason(JSON.parse(obj.body.body));
+        root.render(<React.StrictMode>
+          <ProjectView />
+        </React.StrictMode>);
+      })
+    });
 }
 
 function back() {
