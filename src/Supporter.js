@@ -4,7 +4,9 @@ import './App.css';
 import {root} from './index.js';
 import { currentUser, setCurrentUser, Jason, setJason, App } from './App.js';
 
-
+let directSupportAmmount= React.createRef();
+let AddFundsAmount= React.createRef();
+let search = React.createRef();
 
 function login() {
   if (window.confirm("Are you sure you want to sign out?") === true) {
@@ -107,11 +109,24 @@ function SupDash () {
                   </div>  
               </div>
               <div className="column is-3">
+                <button className="button is-info" onClick = {(e) => viewActivity()}>View Activity</button>
+              </div>
+              <div className="column is-3">
                 <button type="button" className="button has-background-danger-light has-text-danger-dark mr-0" onClick = {(e) => login()}>Sign Out</button>
               </div>
             </div>
           </div>
-          <p className="subtitle is-5 mx-6 my-1">Sort by Genre:</p>
+          <div className="field has-addons mx-6">
+            <div className="control">
+              <input className="input" type="text" placeholder="Search here" id="AddFundsAmount" name="AddFundsAmount" ref={search}></input>
+            </div>
+            <div className="control">
+              <a className="button is-success" onClick = {(e) => searchProjects()}>
+                Search
+              </a>
+            </div>
+          </div>
+          <p className="subtitle is-7 mx-6 my-1">Sort by Genre:</p>
           <div class="field has-addons mx-6">
             <p class="control">
               <button class="button" name="genre" value="Game" id="c1" onClick = {(e) => searchProjectsGenre("Game")}>
@@ -140,7 +155,28 @@ function SupDash () {
   return designerStuff;
 }
 
+function directSupport() {
+  let json = {
+    Email: currentUser,
+    ID: Jason.ID,
+    Amount: directSupportAmmount.current.value
+  }
 
+  fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/directSupport", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(json),
+    }).then((responseJson) => {
+      
+      responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+
+        setJason(JSON.parse(obj.body.body));
+        root.render(<React.StrictMode>
+          <ProjectView />
+        </React.StrictMode>);
+      })
+    });
+}
 
 //render a list of projects in json file
 function renderProjects(json) {
@@ -183,7 +219,9 @@ function renderProjects(json) {
 }
 
 function searchProjectsGenre(genre) {
+  finalgenre = genre;
   if(genre === "Reset") {
+    finalgenre = "";
     let json = {
       Email: currentUser,
     }
@@ -204,28 +242,35 @@ function searchProjectsGenre(genre) {
       })
     });
   } else {
-
-    let json = {
-      Genre: genre,
-    }
-   
-    fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/searchProjects", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(json),
-      }).then((responseJson) => {
-        
-        responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
-  
-          setJason(JSON.parse(obj.body.body));
-          root.render(<React.StrictMode>
-            <SupDash />
-          </React.StrictMode>);
-  
-        })
-      });
+    searchProjects();
   }
 
+}
+
+var finalgenre;
+
+function searchProjects() {
+
+  let json = {
+    Genre: finalgenre,
+    Keyword: search.current.value
+  }
+ 
+  fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/searchProjects", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(json),
+    }).then((responseJson) => {
+      
+      responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+
+        setJason(JSON.parse(obj.body.body));
+        root.render(<React.StrictMode>
+          <SupDash />
+        </React.StrictMode>);
+
+      })
+    });
 }
 
 
@@ -276,10 +321,10 @@ function ProjectView() {
                   <h3 className="title is-5 mb-1">Directly Support:</h3>
                   <div className="field has-addons">
                     <div className="control">
-                      <input className="input" type="text" placeholder="e.g. 1000" id="directSupport" name="directSupport"></input>
+                      <input className="input" type="text" placeholder="e.g. 1000" id="directSupport" name="directSupport" ref={directSupportAmmount}></input>
                     </div>
                     <div className="control">
-                      <a className="button is-success">
+                      <a className="button is-success" onClick = {(e) => directSupport()}>
                         Donate!
                       </a>
                     </div>
@@ -360,7 +405,7 @@ function RenderNewProject() {
 }
 
 
-let AddFundsAmount= React.createRef();
+
 var funds;
 
 function addFunds(money) {
@@ -436,7 +481,122 @@ function viewPledge(pledge){
     });
 }
 
+function viewActivity() {
+  let json = {
+    Email: currentUser
+  }
+ 
+  fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/viewSupporterActivity", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(json),
+    }).then((responseJson) => {
+      
+      responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
 
+        setJason(JSON.parse(obj.body.body));
+        console.log("printing supporter profile")
+        root.render(<React.StrictMode>
+          <SupporterProfile />
+        </React.StrictMode>);
+
+      })
+    });
+}
+
+function SupporterProfile() {
+  let supporterStuff = (
+    <main className="hero has-background-info-light is-fullheight is-justify-content-start">
+
+        <div>
+          <button className="button is-normal mx-5 my-3" onClick = {(e) => back()}>&lt; Back</button>
+        </div>
+        
+        <div className="columns m-5">
+          <div className="column">
+            <div className="is-flex is-justify-content-left">
+              <div className="is-flex is-flex-direction-column is-justify-content-space-between mx-5">
+
+                <div className="box">
+                  <div className="container">
+                    <h3 className="title is-2 is-spaced">Recent Supporter Activity</h3>
+                  </div>
+                  <h3 className="subtitle is-4 mt-3">Email: {currentUser}</h3>
+                  <h3 className="subtitle is-5 mt-0">Available Funds: ${Jason.Funds}</h3>
+                </div>
+
+                <div className="box">
+                  <div className="container">
+                    <h2 className="title is-2">Recent Donations:</h2>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+    <table style = {layout.table}>
+    <tr>
+      <th>Name</th>
+      <th>Amount</th>
+      <th>Description</th>
+      <th>Status</th>
+    </tr>
+    {RenderSupportedPledges()}
+    </table>
+    <table style = {layout.table2}>
+    <tr>
+      <th>Name</th>
+      <th>Amount</th>
+    </tr>
+    {RenderSupportedDonations()}
+    </table>
+  </main>
+  )
+
+  return supporterStuff;
+}
+
+function RenderSupportedPledges() {
+  let pledges = Jason.Pledges;
+  let result = [];
+  pledges.forEach(pledge => {
+    var status;
+      if(parseInt(pledge.ProjectIsActive, 10) === 3){
+        status = "Failed";
+      } else if (parseInt(pledge.ProjectIsActive, 10) === 0) {
+        status = "Inactive";
+      } else if (parseInt(pledge.ProjectIsActive, 10) === 1){
+        status = "Active";
+      } else if (parseInt(pledge.ProjectIsActive, 10) === 2){
+        status = "Succesful";
+      }
+      result.push(
+        <tr>
+          <td>{pledge.ProjectName}</td>
+          <td>${pledge.Amount}</td>
+          <td>{pledge.Description.substring(0, 10)}</td>
+          <td>{status}</td>
+        </tr>
+      )
+  });
+return result;
+}
+
+function RenderSupportedDonations() {
+  let donations = Jason.Donations;
+  let result = [];
+  donations.forEach(donation => {
+      result.push(
+        <tr>
+          <td>{donation.ProjectName}</td>
+          <td>${donation.Amount}</td>
+        </tr>
+      )
+  });
+return result;
+}
 
 function PledgeView() {
     let pledgeStuff =  (

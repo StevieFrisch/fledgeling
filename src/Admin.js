@@ -56,7 +56,7 @@ function AdminDash () {
             </div>
           </div>
           <div>
-            <button className="button is-large is-danger mx-6 mt-3 mb-5"> Reap Projects</button>
+            <button className="button is-large is-danger mx-6 mt-3 mb-5" onClick = {(e) => reapProjects()}> Reap Projects</button>
           </div>
           {RenderProjectsAdmin(Jason)}
         </div>
@@ -64,6 +64,60 @@ function AdminDash () {
     )
     
     return adminStuff;
+  }
+
+  function deleteProject(project) {
+    if (window.confirm("Are you sure you want to delete this project?") === true) {
+        let json = {
+            Email: currentUser,
+            ID: project.ID,
+          }
+        
+          fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/deleteProject", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(json),
+            }).then((responseJson) => {
+              
+              responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+        
+                setJason(JSON.parse(obj.body.body));
+                root.render(<React.StrictMode>
+                  <AdminDash />
+                </React.StrictMode>);
+        
+              })
+            });
+      } else {
+        console.log("Cancled");
+      }
+
+  }
+
+  function reapProjects() {
+    if (window.confirm("Are you sure you want to reap projects?") === true) {
+    let json = {
+      Email: currentUser,
+    }
+  
+    fetch("https://eh3q636qeb.execute-api.us-east-1.amazonaws.com/Prod/reapProjects", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(json),
+    }).then((responseJson) => {
+      
+      responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
+  
+        setJason(JSON.parse(obj.body.body));
+        root.render(<React.StrictMode>
+          <AdminDash />
+        </React.StrictMode>);
+  
+      })
+    });
+  } else {
+    console.log("Cancled");
+  }
   }
   
   function RenderProjectsAdmin(json) {
@@ -96,7 +150,7 @@ function AdminDash () {
                     <p className="title is-3 is-spaced">
                     {project.Name}
                     </p>
-                    <button className="button is-danger is-light mr-5">Delete Project</button>
+                    <button className="button is-danger is-light mr-5" onClick = {(e) => deleteProject()}>Delete Project</button>
                 </div>
               <p className="subtitle is-5">{project.Description}</p>
                   <div className="columns">
