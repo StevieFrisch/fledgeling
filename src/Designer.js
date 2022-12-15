@@ -1,4 +1,4 @@
-import { layout } from './Layout.js';
+
 import React from 'react';
 import './App.css';
 import {root} from './index.js';
@@ -271,41 +271,62 @@ export function getDesProjectsReg(){
   
   function ProjectView() {
     let projectStuff =  (
-      <main style = {layout.Appmain}>
-      <label style = {layout.proj}>Project: {Jason.Name}</label>
-      <label style = {layout.raised}>${Jason.Amount} / ${Jason.Goal}</label>
-      <label style = {layout.donations}>Direct Donations:</label>
-      <table style = {layout.table2}>
-            <tr>
-              <th>Supporter</th>
-              <th>Amount</th>
-            </tr>
-            {RenderNewDonation()}
-      </table>
-      <table>
-            <tr>
-              <th>Designer</th>
-              <th>Description</th>
-              <th>Deadline</th>
-              <th>Genre</th>
-              <th>Goal</th>
-              <th>Status</th>
-            </tr>
-            {RenderNewProject()}
-      </table>
-      <table style = {layout.table}>
-            <tr>
-              <th>Pledge</th>
-              <th>Description</th>
-              <th>Max Supporters</th>
-              <th>Delete?</th>
-            </tr>
-            {RenderNewPledge()}
-      </table>
-          <button type="button" className="createPledge" onClick = {(e) => root.render(<React.StrictMode><CreatePledge /></React.StrictMode>)}>Create Pledge</button>
-          <button type="button" className="deleteProject" onClick = {(e) => deleteProject()}>Delete Project</button>
-          <button type="button" className="launchProject" onClick = {(e) => launchProject()}>Launch Project</button>
-          <button type="button" className="back" onClick = {(e) => back()}>Back</button>
+      <main className="hero has-background-info-light is-fullheight is-justify-content-start">
+     
+        <div>
+          <button className="button is-normal mx-3 my-3" onClick = {(e) => back()}>&lt; Back</button>
+        </div>
+        
+        <div className="columns box m-5">
+          <div className="column">
+            <div className="is-flex is-justify-content-left">
+              <div className="is-flex is-flex-direction-column mx-5">
+
+                <div className="box has-background-grey-darker">
+                  <div className="container">
+                    <label className="title is-3 has-text-white-ter">Project: {Jason.Name}</label>
+                  </div>
+                </div>
+
+                <button className="button is-large is-success" onClick = {(e) => launchProject()}>Launch Project</button>
+
+                <div className="columns my-3">
+                  <div className="column">
+                    <button className="button is-info is-large" onClick = {(e) => root.render(<React.StrictMode><CreatePledge /></React.StrictMode>)}>Create Pledge</button>
+                  </div>
+                  <div className="column">
+                    <button className="button is-danger is-large" onClick = {(e) => deleteProject()}>Delete Project</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div className="column mr-6 pr-5">
+            <div className="is-flex is-flex-direction-column is-align-content-center">
+              <div>
+                <label className="is-size-7 mb-1 has-text-grey-light">&nbsp;&nbsp;<strong>Amount Raised: ${Jason.Amount} / ${Jason.Goal}</strong></label>
+                <progress className="progress is-success mb-3" value={Jason.Amount} max={Jason.Goal}/>
+              </div>
+              {RenderNewProject()}
+            </div>
+          </div>
+        </div>
+
+        <div className="columns mx-5">
+          <div className="column">
+            <div className="box">
+              <h3 className="title is-3">Donations:</h3>
+              {RenderNewDonation()}
+            </div>
+          </div>
+          <div className="column">
+            <div className="box">
+              <h3 className="title is-3">Pledges:</h3>
+              {RenderNewPledge()}
+            </div>
+          </div>
+        </div>
       </main>)
       return projectStuff;
   }
@@ -336,10 +357,14 @@ export function getDesProjectsReg(){
     let result = [];
     donations.forEach(donation => {
       result.push(
-        <tr>
-          <td>{donation.Email}</td>
-          <td>${donation.Amount}</td>
-        </tr>
+        <div className="columns">
+          <div className="column">
+            <h6 class="subtitle is-6"><strong>Donator:</strong> {donation.Email}</h6>
+          </div>
+          <div className="column">
+            <h6 class="subtitle is-6"><strong>Amount:</strong> ${donation.Amount}</h6>
+          </div>
+        </div>
       )
     });
     return result;
@@ -360,14 +385,32 @@ export function getDesProjectsReg(){
     }
 
       result.push(
-        <tr>
-          <td>{Jason.DesignerName}</td>
-          <td>{Jason.Description}</td>
-          <td>{Jason.Deadline.substring(0, 10)}</td>
-          <td>{Jason.Genre}</td>
-          <td>${Jason.Goal}</td>
-          <td>{status}</td>
-        </tr>
+        <h4 className="subtitle is-4 my-5">
+          <div className="columns">
+            <div className="column">
+              <strong>Designer:</strong> {Jason.DesignerName}
+            </div>
+            <div className="column">
+              <strong>Description:</strong> {Jason.Description}<br/>
+            </div>
+          </div>
+          <div className="columns">
+            <div className="column">
+              <strong>Deadline:</strong> {Jason.Deadline.substring(0, 10)}<br/>
+            </div>
+            <div className="column">
+              <strong>Genre:</strong> {Jason.Genre}<br/>
+            </div>
+          </div>
+          <div className="columns">
+            <div className="column">
+              <strong>Goal:</strong> ${Jason.Goal}<br/>
+            </div>
+            <div className="column">
+              <strong>Status:</strong> {status}
+            </div>
+          </div>
+        </h4>
       )
     return result;
   }
@@ -377,12 +420,20 @@ export function getDesProjectsReg(){
     let result = [];
     pledges.forEach(pledge => {
       result.push(
-        <tr>
-          <td><button onClick = {(e) => viewPledge(pledge)}>${pledge.Amount}</button></td>
-          <td>{pledge.Description}</td>
-          <td>{pledge.MaxSupporters}</td>
-          <td><button onClick = {(e) => deletePledge(pledge)}>Delete</button></td>
-        </tr>
+        <div className="columns">
+          <div className="column">
+            <button className="button is-info is-light" onClick = {(e) => viewPledge(pledge)}>${pledge.Amount}</button>
+          </div>
+          <div className="column">
+            <h6 className="subtitle is-6">{pledge.Description}</h6>
+          </div>
+          <div className="column">
+            <h6 className="subtitle is-6">Maximum Supporters: {pledge.MaxSupporters}</h6>
+          </div>
+          <div className="column">
+            <button className="button is-danger" onClick = {(e) => deletePledge(pledge)}>Delete Pledge</button>
+          </div>
+        </div>
       )
     });
     return result;
@@ -416,16 +467,33 @@ export function getDesProjectsReg(){
 
   function PledgeView () {
     let pledgeStuff =  (
-      <main style = {layout.Appmain}>
-      <label style = {layout.proj}>Pledge: ${Jason.Amount}</label>
-      <label style = {layout.description}>Description: {Jason.Description}</label>
-      <table style = {layout.table}>
-            <tr>
-              <th>Supporters</th>
-            </tr>
-            {RenderSupporters()}
-      </table>
-      <button type="button" className="back" onClick = {(e) => backProj()}>Back</button>
+    <main className="hero has-background-info-light is-fullheight is-justify-content-start">
+      <div>
+        <button className="button is-normal mx-3 mt-3" onClick = {(e) => backProj()}>&lt; Back</button>
+      </div>
+
+        <div className="is-flex is-flex-direction-column is-justify-content-left">
+          <div className="columns">
+            <div className="column is-one-third">
+
+              <div className="box m-5">
+                <h1 className="title is-3 m-3">Pledge: ${Jason.Amount}</h1>
+                <h1 className="subtitle is-5 m-3">Description: {Jason.Description}</h1>
+              </div>
+
+            </div>
+          </div>
+          <div className="columns">
+            <div className="column is-one-third">
+              <div className="box mx-5">
+                <h4 className="title is-4 is-spaced">Current Supporters:</h4>
+                {RenderSupporters()}
+              </div>
+            </div>
+          </div>
+
+          
+        </div>
       </main>)
   
       return pledgeStuff;
@@ -459,9 +527,7 @@ export function getDesProjectsReg(){
     let result = [];
     for(let email of supporters){
       result.push(
-        <tr>
-          <td>{email}</td>
-        </tr>
+        <h5 className="subtitle is-6">{email}</h5>
       );
     }
     
@@ -474,14 +540,36 @@ export function getDesProjectsReg(){
   
   function CreatePledge(){
     let PledgeStuff = (
-    <main style = {layout.Appmain}>
-        <label style = {layout.name} htmlFor="Amount">Amount:</label>
-        <input style = {layout.nametextBox} type="text" id="PledgeAmount" name="PledgeAmount" ref={PledgeAmount}></input>
-        <label style = {layout.desc} htmlFor="Desc">Description:</label>
-        <input style = {layout.desctextBox} type="text" id="PledgeDesc" name="PledgeDesc" ref={PledgeDesc}></input>
-        <label style = {layout.deadline} htmlFor="PledgeMax">Max Supporters:</label>
-        <input style = {layout.maxtextBox} type="PledgeMax" id="PledgeMax" name="PledgeMax" ref={PledgeMax}></input>
-        <button id = "btn" type="button" className="createProject2" onClick = {(e) => CreateNewPledge()}>Submit</button>
+    <main className="hero has-background-info-light is-fullheight is-justify-content-start">
+      <div className="is-flex is-justify-content-center mt-6">
+        <div className="is-flex is-flex-direction-column is-justify-content-center">
+
+          <label className="title is-4">Create Pledge</label>
+
+          <div className="field">
+            <label className="label">Amount</label>
+            <div className="control">
+              <input className="input" placeholder="e.g. 100" type="text" id="Name" name="Name" ref={PledgeAmount}></input>
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label">Description</label>
+            <div className="control">
+              <textarea className="textarea" id="PledgeDesc" name="PledgeDesc" ref={PledgeDesc}></textarea>
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label">Max Supporters</label>
+            <div className="control">
+              <input className="input" placeholder="e.g. 5" id="PledgeMax" name="PledgeMax" ref={PledgeMax}></input>
+            </div>
+          </div>
+
+          <button className="button is-success" onClick = {(e) => CreateNewPledge()}>Create Pledge</button>
+      </div>
+      </div>
     </main>)
   
     return PledgeStuff;
