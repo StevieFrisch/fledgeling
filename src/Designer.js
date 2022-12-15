@@ -429,6 +429,12 @@ export function getDesProjectsReg(){
     let pledges = Jason.PledgeTiers;
     let result = [];
     pledges.forEach(pledge => {
+      var maxSupp;
+      if(pledge.MaxSupporters === -1){
+        maxSupp = "None";
+      } else {
+        maxSupp = pledge.MaxSupporters;
+      }
       result.push(
         <div className="columns">
           <div className="column">
@@ -438,7 +444,7 @@ export function getDesProjectsReg(){
             <h6 className="subtitle is-6">{pledge.Description}</h6>
           </div>
           <div className="column">
-            <h6 className="subtitle is-6">Maximum Supporters: {pledge.MaxSupporters}</h6>
+            <h6 className="subtitle is-6">Maximum Supporters: {maxSupp}</h6>
           </div>
           <div className="column">
             <button className="button is-danger" onClick = {(e) => deletePledge(pledge)}>Delete Pledge</button>

@@ -126,25 +126,25 @@ function SupDash () {
             </div>
           </div>
           <p className="subtitle is-7 mx-6 my-1">Sort by Genre:</p>
-          <div class="field has-addons mx-6">
-            <p class="control">
-              <button class="button" name="genre" value="Game" id="c1" onClick = {(e) => searchProjectsGenre("Game")}>
+          <div className="field has-addons mx-6">
+            <p className="control">
+              <button className="button" name="genre" value="Game" id="c1" onClick = {(e) => searchProjectsGenre("Game")}>
                 <span>Game</span>
               </button>
             </p>
-            <p class="control">
-              <button class="button" name="genre" value="Food" id="c2" onClick = {(e) => searchProjectsGenre("Food")}>
+            <p className="control">
+              <button className="button" name="genre" value="Food" id="c2" onClick = {(e) => searchProjectsGenre("Food")}>
                 <span>Food</span>
               </button>
             </p>
-            <p class="control">
-              <button class="button" name="genre" value="Movie" id="c3" onClick = {(e) => searchProjectsGenre("Movie")}>
+            <p className="control">
+              <button className="button" name="genre" value="Movie" id="c3" onClick = {(e) => searchProjectsGenre("Movie")}>
                 <span>Movie</span>
               </button>
             </p>
           </div>
           <div>
-            <button class="button is-small is-danger is-outlined mx-6 mt-0 mb-5 py-1" onClick = {(e) => searchProjectsGenre("Reset")}>Reset Search</button>
+            <button className="button is-small is-danger is-outlined mx-6 mt-0 mb-5 py-1" onClick = {(e) => searchProjectsGenre("Reset")}>Reset Search</button>
           </div>
           {renderProjects(Jason)}
         </div>
