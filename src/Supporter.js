@@ -84,30 +84,54 @@ let finalgenre = "";
 //Supporter Dashboard Renderer
 function SupDash (){
   let designerStuff =  (
-    <main style = {layout.Appmain}>
-    <label style = {layout.proj}>Projects</label>
-    <label style = {layout.genreLabel}>Genres</label>
-    <button style = {layout.c1} type="button" name="genre" value="Game" id="c1" onClick = {(e) => searchProjectsGenre("Game")}>Game</button>
-    <button style = {layout.c2} type="button" name="genre" value="Food" id="c2" onClick = {(e) => searchProjectsGenre("Food")}>Food</button> 
-    <button style = {layout.c3} type="button" name="gnere" value="Movie" id="c3" onClick = {(e) => searchProjectsGenre("Movie")}> Movie</button>
-    <button className = "genreButton" onClick = {(e) => searchProjectsGenre("Reset")}>Reset</button>
-    <table>
-          <tr>
-            <th>Project Name</th>
-            <th>Description</th>
-            <th>Deadline</th>
-            <th>Genre</th>
-            <th>Goal</th>
-          </tr>
+    <main className="hero has-background-info-light is-fullheight ">
+        <div className="is-flex is-flex-direction-column is-justify-content-space-between is-flex-wrap-nowrap">
+          <div className="is-flex is-justify-content-space-between is-align-items-center my-5 mx-6">
+            <div> 
+              <label className="box title is-1">Projects</label>
+            </div>
+            <div className="columns">
+              <div className="column">
+                  <div className="field has-addons">
+                  <div className="control">
+                    <input className="input" type="text" placeholder="e.g. 1000" id="AddFundsAmount" name="AddFundsAmount" ref={AddFundsAmount}></input>
+                  </div>
+                  <div className="control">
+                    <a className="button is-success" onClick = {(e) => addFunds()}>
+                      Add Funds
+                    </a>
+                  </div>
+                  </div>  
+              </div>
+              <div className="column is-3">
+                <button type="button" className="button has-background-danger-light has-text-danger-dark mr-0" onClick = {(e) => login()}>Sign Out</button>
+              </div>
+            </div>
+          </div>
+          <p className="subtitle is-5 mx-6 my-1">Sort by Genre:</p>
+          <div class="field has-addons mx-6">
+            <p class="control">
+              <button class="button" name="genre" value="Game" id="c1" onClick = {(e) => searchProjectsGenre("Game")}>
+                <span>Game</span>
+              </button>
+            </p>
+            <p class="control">
+              <button class="button" name="genre" value="Food" id="c2" onClick = {(e) => searchProjectsGenre("Food")}>
+                <span>Food</span>
+              </button>
+            </p>
+            <p class="control">
+              <button class="button" name="genre" value="Movie" id="c3" onClick = {(e) => searchProjectsGenre("Movie")}>
+                <span>Movie</span>
+              </button>
+            </p>
+          </div>
+          <div>
+            <button class="button is-small is-danger is-outlined mx-6 mt-0 mb-5 py-1" onClick = {(e) => searchProjectsGenre("Reset")}>Reset</button>
+          </div>
           {renderProjects(Jason)}
-        </table>
-        <input style = {layout.addfundstextBox} type="AddFundsAmount" id="AddFundsAmount" name="AddFundsAmount" ref={AddFundsAmount}></input>
-        <button type="button" className="addFunds" onClick = {(e) => addFunds()}>Add Funds</button>
-        <button type="button" className="signOut" onClick = {(e) => login()}>Sign Out</button>
-        <input style = {layout.addfundtextBox} type="search" id="search" name="search" ref={search}></input>
-        <button type="button" style = {layout.search} onClick = {(e) => searchProjects()}>Search</button>
-        <label style = {layout.funds}>Funds: {0}</label>
-    </main>
+        </div>
+      </main>
   )
   
   return designerStuff;
@@ -141,13 +165,35 @@ function renderProjects(json) {
   let result = [];
   projects.forEach(project => {
     result.push(
-      <tr>
-        <td><button onClick = {(e) => viewProject(project)}>{project.Name}</button></td>
-        <td>{project.Description}</td>
-        <td>{project.Deadline.substring(0, 10)}</td>
-        <td>{project.Genre}</td>
-        <td>${project.Goal}</td>
-      </tr>
+      <div className="columns mx-6">
+          <div className="column is-three-fifths p-0 my-5">
+            <div className="box is-clickable" onClick = {(e) => viewProject(project)}>
+              <div className="is-flex is-flex-direction-column">
+              <p className="title is-3 is-spaced">
+                <u>{project.Name}</u>
+              </p>
+              <p className="subtitle is-5">{project.Description}</p>
+                  <div className="columns">
+                    <div className="column">
+                      <p className="subtitle is-6">
+                       Deadline: {project.Deadline.substring(0, 10)}
+                      </p>
+                    </div>
+                    <div className="column">
+                      <p className="subtitle is-6">
+                       Genre: {project.Genre}
+                      </p>
+                    </div>
+                    <div className="column">
+                      <p className="subtitle is-6">
+                       Goal: ${project.Goal}
+                      </p>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
     )
   });
   return result;
@@ -235,31 +281,58 @@ let directSupportAmmount= React.createRef();
 
 function ProjectView() {
   let projectStuff =  (
-    <main style = {layout.Appmain}>
-    <label style = {layout.proj}>Project: {Jason.Name}</label>
-    <label style = {layout.raised}>${Jason.Amount} / ${Jason.Goal}</label>
-    <label style = {layout.goal} htmlFor="Goal">Direct Support:</label>
-    <input style = {layout.supporttextBox} type="text" id="directSupport" name="directSupport" ref={directSupportAmmount}></input>
-    <button type="button" className="directSupport" onClick = {(e) => directSupport()}>Submit</button>
-    <table>
-          <tr>
-            <th>Designer</th>
-            <th>Description</th>
-            <th>Deadline</th>
-            <th>Genre</th>
-            <th>Goal</th>
-          </tr>
-          {RenderNewProject()}
-    </table>
-    <table style = {layout.table}>
-          <tr>
-            <th>Pledge</th>
-            <th>Description</th>
-            <th>Max Supporters</th>
-          </tr>
-          {RenderNewPledge()}
-    </table>
-    <button type="button" className="back" onClick = {(e) => back()}>Back</button>
+    <main className="hero has-background-info-light is-fullheight is-justify-content-start">
+
+        <div>
+          <button className="button is-normal mx-5 my-3" onClick = {(e) => back()}>&lt; Back</button>
+        </div>
+        
+        <div className="columns box m-5">
+          <div className="column">
+            <div className="is-flex is-justify-content-left">
+              <div className="is-flex is-flex-direction-column is-justify-content-space-between mx-5">
+
+                <div className="box has-background-grey-darker">
+                  <div className="container">
+                    <label className="title is-3 has-text-white-ter">Project: {Jason.Name}</label>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="title is-5 mb-1">Directly Support:</h3>
+                  <div className="field has-addons">
+                    <div className="control">
+                      <input className="input" type="text" placeholder="e.g. 1000" id="directSupport" name="directSupport"></input>
+                    </div>
+                    <div className="control">
+                      <a className="button is-success">
+                        Donate!
+                      </a>
+                    </div>
+                  </div> 
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div className="column mr-6 pr-5">
+            <div className="is-flex is-flex-direction-column is-align-content-center">
+              <div>
+                <label className="is-size-6 mb-4 has-text-grey-light">&nbsp;&nbsp;<strong>Amount Raised: ${Jason.Amount} / ${Jason.Goal}</strong></label>
+                <progress className="progress is-success mb-3" value={Jason.Amount} max={Jason.Goal}/>
+              </div>
+              {RenderNewProject()}
+            </div>
+          </div>
+        </div>
+
+        <div className="columns mx-3">
+          <div className="column">
+            <div className="box">
+              <h3 className="title is-3">Pledges:</h3>
+              {RenderNewPledge()}
+            </div>
+          </div>
+        </div>
     </main>)
 
     return projectStuff;
@@ -312,13 +385,24 @@ function back() {
 function RenderNewProject() {
   let result = [];
     result.push(
-      <tr>
-        <td>{Jason.DesignerName}</td>
-        <td>{Jason.Description}</td>
-        <td>{Jason.Deadline.substring(0, 10)}</td>
-        <td>{Jason.Genre}</td>
-        <td>${Jason.Goal}</td>
-      </tr>
+      <h4 className="subtitle is-4 my-5">
+          <div className="columns">
+            <div className="column">
+              <strong>Designer:</strong> {Jason.DesignerName}
+            </div>
+            <div className="column">
+              <strong>Description:</strong> {Jason.Description}<br/>
+            </div>
+          </div>
+          <div className="columns">
+            <div className="column">
+              <strong>Deadline:</strong> {Jason.Deadline.substring(0, 10)}<br/>
+            </div>
+            <div className="column">
+              <strong>Genre:</strong> {Jason.Genre}<br/>
+            </div>
+          </div>
+        </h4>
     )
   return result;
 }
@@ -357,11 +441,17 @@ function RenderNewPledge() {
   let result = [];
   pledges.forEach(pledge => {
     result.push(
-      <tr>
-        <td><button onClick = {(e) => viewPledge(pledge)}>${pledge.Amount}</button></td>
-        <td>{pledge.Description}</td>
-        <td>{pledge.MaxSupporters}</td>
-      </tr>
+      <div className="columns">
+          <div className="column">
+            <button className="button is-info is-light" onClick = {(e) => viewPledge(pledge)}>${pledge.Amount}</button>
+          </div>
+          <div className="column">
+            <h6 className="subtitle is-6">{pledge.Description}</h6>
+          </div>
+          <div className="column">
+            <h6 className="subtitle is-6"><strong>Maximum Supporters: </strong>{pledge.MaxSupporters}</h6>
+          </div>
+      </div>
     )
   });
   return result;
@@ -398,12 +488,26 @@ function viewPledge(pledge){
 
 function PledgeView() {
     let pledgeStuff =  (
-      <main style = {layout.Appmain}>
-      <label style = {layout.proj}>Pledge: ${Jason.Amount}</label>
-      <label style = {layout.description}>Description: {Jason.Description}</label>
-      <label style = {layout.funds}>Funds: {Jason.CurrentSupporterBudget}</label>
-      <button className = "claim" onClick = {(e) => ClaimPledge()}>Claim</button>
-      <button type="button" className="back" onClick = {(e) => backProj()}>Back</button>
+      <main className="hero has-background-info-light is-fullheight is-justify-content-start">
+        <div>
+          <button className="button is-normal mx-5 my-3" onClick = {(e) => backProj()}>&lt; Back</button>
+        </div>
+        <div className="is-flex is-justify-content-center">
+        <div className="is-flex is-flex-direction-column is-justify-content-space-between is-flex-wrap-nowrap">
+          <div className="is-flex is-justify-content-space-between is-align-items-center my-5 mx-5">
+            <div className="box"> 
+              <h1 className="title is-2 is-spaced">Pledge: ${Jason.Amount}</h1>
+              <h4 className="subtitle is-5"><strong>Description:</strong> {Jason.Description}</h4>
+            </div>
+          </div>
+          <div className="is-flex is-justify-content-space-between is-align-items-center mx-5">
+          <div className="box">
+            <h3 className="title is-3">Funds: {Jason.CurrentSupporterBudget}</h3>
+            <button className="button is-large is-success mx-5" onClick = {(e) => ClaimPledge()}>Claim This Pledge</button>
+          </div>
+          </div>
+        </div>
+        </div>
       </main>)
   
       return pledgeStuff;
