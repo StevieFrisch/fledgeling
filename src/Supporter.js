@@ -349,7 +349,7 @@ function ProjectView() {
           <div className="column">
             <div className="box">
               <h3 className="title is-3">Pledges:</h3>
-              {RenderNewPledge()}
+              
             </div>
           </div>
         </div>
@@ -610,7 +610,6 @@ function RenderSupportedPledges() {
                 {status}<br/>
               </div>
             </div>
-            {RenderSupportedPledges()}
         </h4>
       )
   });
