@@ -175,9 +175,13 @@ function directSupport() {
       responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
 
         setJason(JSON.parse(obj.body.body));
-        root.render(<React.StrictMode>
-          <ProjectView />
-        </React.StrictMode>);
+        if (Object.keys(Jason).length === 0){
+          alert("Error donating")
+        } else {
+          root.render(<React.StrictMode>
+            <ProjectView />
+          </React.StrictMode>);
+        }
       })
     });
 }
