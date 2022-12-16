@@ -711,8 +711,7 @@ function ClaimPledge() {
           responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
     
             setJason(JSON.parse(obj.body.body));
-            console.log(Jason);
-            if (Jason.error != null){
+            if (Object.keys(Jason).length === 0){
               alert("Error claiming pledge")
             } else {
               root.render(<React.StrictMode>
