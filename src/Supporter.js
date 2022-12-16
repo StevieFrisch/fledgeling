@@ -142,6 +142,11 @@ function SupDash () {
                 <span>Movie</span>
               </button>
             </p>
+            <p className="control">
+              <button className="button" name="genre" value="Music" id="c4" onClick = {(e) => searchProjectsGenre("Music")}>
+                <span>Music</span>
+              </button>
+            </p>
           </div>
           <div>
             <button className="button is-small is-danger is-outlined mx-6 mt-0 mb-5 py-1" onClick = {(e) => searchProjectsGenre("Reset")}>Reset Search</button>
