@@ -108,7 +108,7 @@ function SupDash () {
                   </div>  
               </div>
               <div className="column is-3">
-                <button className="button is-info" onClick = {(e) => viewActivity()}>View Activity</button>
+                <button className="button is-info" onClick = {(e) => viewActivity()}>View Profile</button>
               </div>
               <div className="column is-3">
                 <button type="button" className="button has-background-danger-light has-text-danger-dark mr-0" onClick = {(e) => login()}>Sign Out</button>
@@ -711,7 +711,8 @@ function ClaimPledge() {
           responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
     
             setJason(JSON.parse(obj.body.body));
-            if (Jason.error == null){
+            console.log(Jason);
+            if (Jason.error != null){
               alert("Error claiming pledge")
             } else {
               root.render(<React.StrictMode>
