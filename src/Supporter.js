@@ -711,10 +711,14 @@ function ClaimPledge() {
           responseJson.json().then(data => ({status: responseJson.status, body: data})).then(obj => {
     
             setJason(JSON.parse(obj.body.body));
-            root.render(<React.StrictMode>
-              <PledgeView />
-            </React.StrictMode>);
-            alert("Pledge Claimed");
+            if (Jason.error == null){
+              alert("Error claiming pledge")
+            } else {
+              root.render(<React.StrictMode>
+                <PledgeView />
+              </React.StrictMode>);
+              alert("Pledge Claimed");
+            }
     
           })
         });
